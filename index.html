@@ -35,7 +35,7 @@
   /* Ambient background */
   .matrix-rain{
     position:fixed;inset:0;z-index:0;width:100%;height:100%;
-    pointer-events:none;opacity:.18;mix-blend-mode:screen;
+    pointer-events:none;opacity:.16;mix-blend-mode:screen;
     filter:saturate(1.35);
     mask-image:linear-gradient(90deg, #000 0%, rgba(0,0,0,.78) 64%, transparent 100%);
   }
@@ -389,10 +389,10 @@
         <p>I enjoy building <b>interactive, user-friendly interfaces</b> and constantly improving my skills through hands-on projects. I'm currently deepening my work in advanced React patterns, API integration, async data handling, and accessibility.</p>
         <p>Looking for opportunities where I can contribute, learn from experienced developers, and grow as a frontend engineer.</p>
 
-        <div class="about-stats">
-          <div class="stat"><div class="n">22</div><div class="l">public repositories</div></div>
-          <div class="stat"><div class="n">8+</div><div class="l">shipped projects</div></div>
-          <div class="stat"><div class="n">282</div><div class="l">commits this year</div></div>
+        <div class="about-stats" data-github-user="markwaldron7string">
+          <div class="stat" title="Synced from GitHub public repository count"><div class="n" data-github-stat="publicRepos">22</div><div class="l">public repositories</div></div>
+          <div class="stat" title="Synced from public GitHub repos with live homepage URLs"><div class="n" data-github-stat="shippedProjects">8+</div><div class="l">shipped projects</div></div>
+          <div class="stat" title="Synced from GitHub commit search for the current year"><div class="n" data-github-stat="commitsThisYear">282</div><div class="l">commits this year</div></div>
         </div>
       </div>
     </div>
@@ -657,7 +657,8 @@
     const ctx = matrixCanvas.getContext('2d');
     const glyphs = '01{}[]<>/=';
     const palette = [
-      '57,255,136'
+      '57,255,136',
+      '255, 0, 255'
     ];
     const fontSize = 18;
     let columns = [];
@@ -771,6 +772,125 @@
 
     updateCheyenneOffset();
     setInterval(updateCheyenneOffset, 15 * 60 * 1000);
+  }
+
+  const githubStatsRoot = document.querySelector('[data-github-user]');
+  if(githubStatsRoot){
+    const username = githubStatsRoot.dataset.githubUser;
+    const apiBase = 'https://api.github.com';
+    const cacheKey = `portfolio-github-stats:${username}`;
+    const cacheMs = 10 * 60 * 1000;
+    const refreshMs = 30 * 60 * 1000;
+
+    const githubHeaders = {
+      Accept: 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    };
+
+    const readCache = () => {
+      try{
+        const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+        if(cached && Date.now() - cached.timestamp < cacheMs) return cached.stats;
+      }catch(error){}
+      return null;
+    };
+
+    const writeCache = (stats) => {
+      try{
+        localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), stats }));
+      }catch(error){}
+    };
+
+    const fetchGithubJson = async (url) => {
+      const response = await fetch(url, { headers: githubHeaders });
+      if(!response.ok) throw new Error(`GitHub request failed: ${response.status}`);
+      return response.json();
+    };
+
+    const fetchPublicRepos = async () => {
+      const repos = [];
+      let page = 1;
+
+      while(page < 10){
+        const url = `${apiBase}/users/${username}/repos?per_page=100&page=${page}&sort=updated&type=owner`;
+        const pageRepos = await fetchGithubJson(url);
+        if(!Array.isArray(pageRepos)) break;
+        repos.push(...pageRepos);
+        if(pageRepos.length < 100) break;
+        page += 1;
+      }
+
+      return repos;
+    };
+
+    const fetchCommitCountThisYear = async () => {
+      const year = new Date().getFullYear();
+      const params = new URLSearchParams({
+        q: `author:${username} author-date:${year}-01-01..${year}-12-31`
+      });
+      const commits = await fetchGithubJson(`${apiBase}/search/commits?${params}`);
+      return commits.total_count || 0;
+    };
+
+    const fetchGithubStats = async () => {
+      const [profileResult, reposResult, commitsResult] = await Promise.allSettled([
+        fetchGithubJson(`${apiBase}/users/${username}`),
+        fetchPublicRepos(),
+        fetchCommitCountThisYear()
+      ]);
+
+      const profile = profileResult.status === 'fulfilled' ? profileResult.value : {};
+      const repos = reposResult.status === 'fulfilled' ? reposResult.value : [];
+      const commitsThisYear = commitsResult.status === 'fulfilled' ? commitsResult.value : undefined;
+      const shippedProjects = repos.filter((repo) =>
+        !repo.fork &&
+        !repo.archived &&
+        typeof repo.homepage === 'string' &&
+        /^https?:\/\//.test(repo.homepage.trim())
+      ).length;
+
+      return {
+        publicRepos: Number.isFinite(profile.public_repos) ? profile.public_repos : repos.length,
+        shippedProjects: repos.length ? shippedProjects : undefined,
+        commitsThisYear,
+        syncedAt: new Date().toISOString()
+      };
+    };
+
+    const formatStat = (value) => new Intl.NumberFormat('en-US').format(value);
+
+    const applyGithubStats = (stats) => {
+      Object.entries(stats).forEach(([key, value]) => {
+        const target = githubStatsRoot.querySelector(`[data-github-stat="${key}"]`);
+        if(target && Number.isFinite(value)){
+          target.textContent = formatStat(value);
+        }
+      });
+
+      if(stats.syncedAt){
+        githubStatsRoot.title = `GitHub stats synced ${new Date(stats.syncedAt).toLocaleString()}`;
+      }
+    };
+
+    const refreshGithubStats = async ({ useCache = true } = {}) => {
+      const cachedStats = useCache ? readCache() : null;
+      if(cachedStats){
+        applyGithubStats(cachedStats);
+        return;
+      }
+
+      try{
+        const stats = await fetchGithubStats();
+        writeCache(stats);
+        applyGithubStats(stats);
+      }catch(error){
+        const staleStats = readCache();
+        if(staleStats) applyGithubStats(staleStats);
+      }
+    };
+
+    refreshGithubStats();
+    setInterval(() => refreshGithubStats({ useCache: false }), refreshMs);
   }
 
   // Build heatmap (52 weeks x 7 days)
