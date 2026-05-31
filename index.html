@@ -35,15 +35,15 @@
   /* Ambient background */
   .matrix-rain{
     position:fixed;inset:0;z-index:0;width:100%;height:100%;
-    pointer-events:none;opacity:.42;mix-blend-mode:screen;
-    filter:saturate(1.35);
+    pointer-events:none;opacity:.62;mix-blend-mode:screen;
+    filter:blur(1.4px) saturate(1.35);
     mask-image:linear-gradient(90deg, #000 0%, rgba(0,0,0,.78) 64%, transparent 100%);
   }
   .grid-bg{
     position:fixed;inset:0;z-index:0;pointer-events:none;
     background-image:
-      linear-gradient(to right, rgba(255,255,255,.025) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,.025) 1px, transparent 1px);
+      linear-gradient(to right, rgba(255,255,255,.095) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.095) 1px, transparent 1px);
     background-size:64px 64px;
     mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 80%);
   }
@@ -152,7 +152,10 @@
     content:"";position:absolute;inset:-1px;border-radius:14px;padding:1px;
     background:linear-gradient(135deg,rgba(255,106,61,.5),transparent 50%);
     -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-    -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+    mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    pointer-events:none;
   }
   .photo-frame{
     background:var(--bg-2);border-radius:8px;aspect-ratio:4/5;
@@ -660,9 +663,15 @@
       '57,255,136',
       '255, 0, 255'
     ];
-    const fontSize = 18;
+    const fontSize = 14;
+    const glyphShiftMinMs = 120;
+    const glyphShiftRangeMs = 120;
+    const glyphShiftMaxSwaps = 42;
     let columns = [];
     let animationId;
+    const randomGlyph = () => glyphs[Math.floor(Math.random() * glyphs.length)];
+    const buildTrailGlyphs = (length) => Array.from({length}, randomGlyph);
+    const nextGlyphShiftDelay = () => glyphShiftMinMs + Math.random() * glyphShiftRangeMs;
 
     const resizeMatrix = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -670,24 +679,38 @@
       matrixCanvas.height = Math.floor(window.innerHeight * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const count = Math.ceil(window.innerWidth / fontSize);
-      columns = Array.from({length: count}, (_, i) => ({
-        x: i * fontSize,
-        y: Math.random() * window.innerHeight,
-        speed: .35 + Math.random() * .75,
-        trail: 8 + Math.floor(Math.random() * 15),
-        color: palette[i % palette.length]
-      }));
+      columns = Array.from({length: count}, (_, i) => {
+        const trail = 8 + Math.floor(Math.random() * 15);
+        return {
+          x: i * fontSize,
+          y: Math.random() * window.innerHeight,
+          speed: .35 + Math.random() * .75,
+          trail,
+          color: palette[i % palette.length],
+          chars: buildTrailGlyphs(trail),
+          glyphShiftDelay: nextGlyphShiftDelay(),
+          lastGlyphShift: 0
+        };
+      });
     };
 
-    const drawMatrix = () => {
+    const drawMatrix = (now = performance.now()) => {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       ctx.font = `${fontSize}px JetBrains Mono, ui-monospace, monospace`;
       columns.forEach((column) => {
         ctx.shadowColor = `rgba(${column.color}, .55)`;
         ctx.shadowBlur = 7;
+        if(now - column.lastGlyphShift > column.glyphShiftDelay){
+          const swaps = 1 + Math.floor(Math.random() * glyphShiftMaxSwaps);
+          for(let swap = 0; swap < swaps; swap++){
+            column.chars[Math.floor(Math.random() * column.trail)] = randomGlyph();
+          }
+          column.lastGlyphShift = now;
+          column.glyphShiftDelay = nextGlyphShiftDelay();
+        }
         for(let i = 0; i < column.trail; i++){
           const alpha = i === 0 ? .76 : Math.max(.05, .48 - i * (.48 / column.trail));
-          const glyph = glyphs[Math.floor(Math.random() * glyphs.length)];
+          const glyph = column.chars[i] || randomGlyph();
           ctx.fillStyle = `rgba(${column.color}, ${alpha})`;
           ctx.fillText(glyph, column.x, column.y - i * fontSize);
         }
@@ -697,6 +720,9 @@
           column.speed = .35 + Math.random() * .75;
           column.trail = 8 + Math.floor(Math.random() * 15);
           column.color = palette[Math.floor(Math.random() * palette.length)];
+          column.chars = buildTrailGlyphs(column.trail);
+          column.glyphShiftDelay = nextGlyphShiftDelay();
+          column.lastGlyphShift = now;
         }
       });
       animationId = requestAnimationFrame(drawMatrix);
