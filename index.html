@@ -684,7 +684,7 @@
         return {
           x: i * fontSize,
           y: Math.random() * window.innerHeight,
-          speed: .35 + Math.random() * .75,
+          speed: .07 + Math.random() * .13,
           trail,
           color: palette[i % palette.length],
           chars: buildTrailGlyphs(trail),
@@ -717,7 +717,7 @@
         column.y += column.speed;
         if(column.y - column.trail * fontSize > window.innerHeight && Math.random() > .96){
           column.y = -fontSize;
-          column.speed = .35 + Math.random() * .75;
+          column.speed = .07 + Math.random() * .13;
           column.trail = 8 + Math.floor(Math.random() * 15);
           column.color = palette[Math.floor(Math.random() * palette.length)];
           column.chars = buildTrailGlyphs(column.trail);
