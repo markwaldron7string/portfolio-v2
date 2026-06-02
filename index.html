@@ -9,24 +9,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg:#0b0c0e;
-    --bg-2:#101216;
-    --panel:#131b13;
-    --panel-2:#171b21;
-    --line:#232f23;
-    --line-2:#4b9646;
+    --bg:#080a0c;
+    --bg-2:#0f1418;
+    --panel:#11181a;
+    --panel-2:#151d22;
+    --line:#24302d;
+    --line-2:#3f8f54;
     --text:#f0f0e7;
-    --muted:#8b919c;
-    --dim:#5e636e;
-    --accent:#39ff3c;     /* matrix green */
-    --accent-2:#b759c5;
-    --accent-3:#ce16df;
-    --accent-soft:rgba(57,255,136,.12);
-    --green:#39ff88;
+    --muted:#a1a7b0;
+    --dim:#69707b;
+    --accent:#62f36d;     /* matrix green */
+    --accent-2:#a76ad1;
+    --accent-3:#b75bd1;
+    --accent-soft:rgba(98,243,109,.12);
+    --green:#62f36d;
     --blue:#58a6ff;
     --yellow:#d29922;
-    --purple:#bf5fff;     /* matrix purple — secondary */
-    --purple-soft:rgba(191,95,255,.12);
+    --purple:#b75bd1;     /* matrix purple — secondary */
+    --purple-soft:rgba(183,91,209,.12);
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-feature-settings:"ss01","cv11";-webkit-font-smoothing:antialiased}
@@ -37,17 +37,20 @@
   /* Ambient background */
   .matrix-rain{
     position:fixed;inset:0;z-index:0;width:100%;height:100%;
-    pointer-events:none;opacity:.62;mix-blend-mode:screen;
-    filter:blur(1.4px) saturate(1.35);
-    mask-image:linear-gradient(90deg, #000 0%, rgba(0,0,0,.78) 64%, transparent 100%);
+    pointer-events:none;opacity:.48;mix-blend-mode:screen;
+    filter:blur(.55px) saturate(1.16);
+    -webkit-mask-image:linear-gradient(90deg, #000 0%, rgba(0,0,0,.74) 58%, transparent 100%);
+    mask-image:linear-gradient(90deg, #000 0%, rgba(0,0,0,.74) 58%, transparent 100%);
   }
   .grid-bg{
-    position:fixed;inset:0;z-index:0;pointer-events:none;
+    position:absolute;inset:0;z-index:0;pointer-events:none;
     background-image:
       linear-gradient(to right, rgba(255,255,255,.095) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255,255,255,.095) 1px, transparent 1px);
     background-size:64px 64px;
-    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 80%);
+    opacity:1;
+    -webkit-mask-image:radial-gradient(ellipse 86% 68% at 44% 8%, #000 42%, rgba(0,0,0,.58) 72%, transparent 100%);
+    mask-image:radial-gradient(ellipse 86% 68% at 44% 8%, #000 42%, rgba(0,0,0,.58) 72%, transparent 100%);
   }
 
   /* Nav */
@@ -68,21 +71,26 @@
   .nav-links a .num{color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:11px;margin-right:6px}
   .nav-cta{
     font-size:12px;font-family:'JetBrains Mono',monospace;
-    color:var(--accent);border:1px solid rgba(57,255,136,.4);
+    color:var(--accent);border:1px solid rgba(98,243,109,.4);
     padding:8px 14px;border-radius:6px;background:var(--accent-soft);
     transition:.15s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;flex-shrink:0;
   }
-  .nav-cta:hover{background:rgba(57,255,136,.2);border-color:var(--accent)}
+  .nav-cta:hover{background:rgba(98,243,109,.18);border-color:var(--accent)}
   .status{
     display:inline-flex;align-items:center;gap:8px;
     font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
   }
   .status .pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 var(--accent-3);animation:pulse 2s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(22, 223, 25, 0.6)}70%{box-shadow:0 0 0 8px rgba(22, 223, 59, 0)}100%{box-shadow:0 0 0 0 rgba(22, 223, 32, 0)}}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(98,243,109,.5)}70%{box-shadow:0 0 0 8px rgba(98,243,109,0)}100%{box-shadow:0 0 0 0 rgba(98,243,109,0)}}
 
   /* Hero */
   section{position:relative;z-index:1}
-  .hero{padding:96px 0 80px;position:relative}
+  .hero{padding:96px 0 80px;position:relative;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(90deg,rgba(8,10,12,.82) 0%,rgba(8,10,12,.58) 44%,rgba(8,10,12,.18) 100%);
+  }
+  .hero .container{position:relative;z-index:2}
   .hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:64px;align-items:center}
   .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.04em;display:flex;align-items:center;gap:10px;margin-bottom:24px}
   .eyebrow::before{content:"";width:24px;height:1px;background:var(--accent)}
@@ -98,10 +106,10 @@
     padding:12px 18px;border-radius:8px;font-size:14px;font-weight:500;
     transition:.15s;cursor:pointer;border:1px solid transparent;
   }
-  .btn-primary{background:var(--accent-3);color:#040f09}
-  .btn-primary:hover{background:#040f09;color:var(--accent-3);border-color:var(--accent-3);box-shadow:0 0 10px var(--accent-3),0 0 20px rgba(206,22,223,.4);transform:translateY(-1px)}
-  .btn-ghost{background:var(--panel);border-color:var(--accent-3);color:var(--text)}
-  .btn-ghost:hover{background:var(--panel-2);color:var(--accent-3);border-color:var(--accent-3);box-shadow:0 0 10px var(--accent-3),0 0 20px rgba(206,22,223,.4)}
+  .btn-primary{background:var(--accent);color:#061208;border-color:rgba(98,243,109,.55);box-shadow:0 0 18px rgba(98,243,109,.18)}
+  .btn-primary:hover{background:#88f59a;border-color:var(--accent);box-shadow:0 0 18px rgba(98,243,109,.28);transform:translateY(-1px)}
+  .btn-ghost{background:rgba(17,24,26,.74);border-color:rgba(183,91,209,.52);color:var(--text)}
+  .btn-ghost:hover{background:var(--purple-soft);color:var(--text);border-color:var(--purple);box-shadow:0 0 18px rgba(183,91,209,.18)}
   .meta-row{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-top:40px;flex-wrap:wrap}
   .meta-row span{display:flex;align-items:center;gap:8px}
   .meta-row svg{width:14px;height:14px;color:var(--accent)}
@@ -152,7 +160,7 @@
   }
   .about-card::before{
     content:"";position:absolute;inset:-1px;border-radius:14px;padding:1px;
-    background:linear-gradient(135deg,rgba(57,255,136,.5),transparent 50%);
+    background:linear-gradient(135deg,rgba(98,243,109,.38),rgba(183,91,209,.18) 54%,transparent 82%);
     -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
     mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
     -webkit-mask-composite:xor;
@@ -178,7 +186,7 @@
   .photo-label{
     position:absolute;bottom:14px;left:14px;z-index:2;
     font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text);letter-spacing:.05em;
-    background:rgba(11,12,14,.72);border:1px solid rgba(57,255,136,.32);border-radius:4px;padding:6px 8px;
+    background:rgba(8,10,12,.76);border:1px solid rgba(98,243,109,.32);border-radius:4px;padding:6px 8px;
   }
 
   .about-text h3{font-size:24px;font-weight:600;letter-spacing:-.015em;margin:0 0 20px}
@@ -296,12 +304,15 @@
     footer .row{align-items:flex-start}
     footer .row .right{width:100%;justify-content:space-between}
   }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
+    .matrix-rain{display:none}
+  }
 </style>
 </head>
 <body>
 
 <canvas id="matrix-rain" class="matrix-rain" aria-hidden="true"></canvas>
-<div class="grid-bg"></div>
 
 <nav class="top">
   <div class="container inner">
@@ -320,12 +331,13 @@
 </nav>
 
 <section class="hero">
+  <div class="grid-bg"></div>
   <div class="container">
     <div class="hero-grid">
       <div>
         <div class="eyebrow">FRONTEND DEVELOPER · CHEYENNE, WY</div>
         <h1 class="title">Building<br/>interfaces<br/>that <span class="accent">just work.</span></h1>
-        <p class="subtitle">I'm <b>Mark Waldron</b> — a frontend developer focused on <b>React</b>, clean UI, and shipping real-world projects that feel fast and look sharp.</p>
+        <p class="subtitle">I'm <b>Mark Waldron</b> — a frontend developer focused on <b>React</b>, clean UI, and real-world projects that feel fast, clear, and polished.</p>
         <div class="cta-row">
           <a href="#work" class="btn btn-primary">
             View projects
@@ -349,17 +361,17 @@
           <div><span class="tk-kw">const</span> <span class="tk-var">developer</span> <span class="tk-kw">=</span> {</div>
           <div class="indent"><span class="tk-prop">name</span>: <span class="tk-str">'Mark Waldron'</span>,</div>
           <div class="indent"><span class="tk-prop">role</span>: <span class="tk-str">'Frontend Developer'</span>,</div>
-          <div class="indent"><span class="tk-prop">focus</span>: [<span class="tk-str">'React'</span>, <span class="tk-str">'UI/UX'</span>, <span class="tk-str">'TypeScript'</span>],</div>
-          <div class="indent"><span class="tk-prop">since</span>: <span class="tk-str">'Aug 2025'</span>,</div>
+          <div class="indent"><span class="tk-prop">focus</span>: [<span class="tk-str">'React'</span>, <span class="tk-str">'UI systems'</span>, <span class="tk-str">'TypeScript'</span>],</div>
+          <div class="indent"><span class="tk-prop">building</span>: <span class="tk-str">'real-world projects'</span>,</div>
           <div class="indent"><span class="tk-prop">location</span>: <span class="tk-str">'Cheyenne, WY'</span>,</div>
-          <div class="indent"><span class="tk-prop">traits</span>: [</div>
-          <div class="indent-2"><span class="tk-str">'detail-oriented'</span>,</div>
-          <div class="indent-2"><span class="tk-str">'motivated'</span>,</div>
-          <div class="indent-2"><span class="tk-str">'always-learning'</span></div>
+          <div class="indent"><span class="tk-prop">strengths</span>: [</div>
+          <div class="indent-2"><span class="tk-str">'clean interfaces'</span>,</div>
+          <div class="indent-2"><span class="tk-str">'API-driven features'</span>,</div>
+          <div class="indent-2"><span class="tk-str">'responsive layouts'</span></div>
           <div class="indent">],</div>
           <div class="indent"><span class="tk-prop">available</span>: <span class="tk-num">true</span><span class="cursor"></span></div>
           <div>}</div>
-          <div style="margin-top:10px"><span class="tk-comment">// shipping projects every week →</span></div>
+          <div style="margin-top:10px"><span class="tk-comment">// focused, polished, ready to contribute →</span></div>
         </div>
       </div>
     </div>
@@ -552,7 +564,7 @@
         <div class="p-num">/04</div>
         <div class="p-shot"><img src="assets/dimibphoto.jpg" alt="DimiB Photography screenshot" loading="lazy" /></div>
         <div class="p-info">
-          <h3 class="p-title">Dim B Photography</h3>
+          <h3 class="p-title">DimiB Photography</h3>
           <div class="p-meta"><span>2026</span><span>Portfolio</span></div>
         </div>
         <div class="p-desc">
@@ -625,7 +637,7 @@
 <section class="contact" id="contact">
   <div class="container">
     <h2>Let's build<br/>something <span class="accent">together.</span></h2>
-    <p>Open to frontend roles, freelance projects, and collaborations involving React or anything UI-focused. Drop me a line — I respond fast.</p>
+    <p>Open to frontend roles, freelance projects, and collaborations involving React or anything UI-focused. Drop me a line — I respond quickly.</p>
     <a href="mailto:contact@mark-waldron.com" class="contact-card">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
       <span>contact@mark-waldron.com</span>
@@ -662,13 +674,14 @@
     const ctx = matrixCanvas.getContext('2d');
     const glyphs = '01{}[]<>/=';
     const palette = [
-      '57,255,136',
-      '255, 0, 255'
+      '98,243,109',
+      '98,243,109',
+      '183,91,209'
     ];
     const fontSize = 14;
     const glyphShiftMinMs = 120;
     const glyphShiftRangeMs = 120;
-    const glyphShiftMaxSwaps = 42;
+    const glyphShiftMaxSwaps = 22;
     let columns = [];
     let animationId;
     const randomGlyph = () => glyphs[Math.floor(Math.random() * glyphs.length)];
@@ -686,7 +699,7 @@
         return {
           x: i * fontSize,
           y: Math.random() * window.innerHeight,
-          speed: .07 + Math.random() * .13,
+          speed: .045 + Math.random() * .09,
           trail,
           color: palette[i % palette.length],
           chars: buildTrailGlyphs(trail),
@@ -700,8 +713,8 @@
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       ctx.font = `${fontSize}px JetBrains Mono, ui-monospace, monospace`;
       columns.forEach((column) => {
-        ctx.shadowColor = `rgba(${column.color}, .55)`;
-        ctx.shadowBlur = 7;
+        ctx.shadowColor = `rgba(${column.color}, .46)`;
+        ctx.shadowBlur = 6;
         if(now - column.lastGlyphShift > column.glyphShiftDelay){
           const swaps = 1 + Math.floor(Math.random() * glyphShiftMaxSwaps);
           for(let swap = 0; swap < swaps; swap++){
@@ -711,7 +724,7 @@
           column.glyphShiftDelay = nextGlyphShiftDelay();
         }
         for(let i = 0; i < column.trail; i++){
-          const alpha = i === 0 ? .76 : Math.max(.05, .48 - i * (.48 / column.trail));
+          const alpha = i === 0 ? .62 : Math.max(.05, .38 - i * (.38 / column.trail));
           const glyph = column.chars[i] || randomGlyph();
           ctx.fillStyle = `rgba(${column.color}, ${alpha})`;
           ctx.fillText(glyph, column.x, column.y - i * fontSize);
@@ -719,7 +732,7 @@
         column.y += column.speed;
         if(column.y - column.trail * fontSize > window.innerHeight && Math.random() > .96){
           column.y = -fontSize;
-          column.speed = .07 + Math.random() * .13;
+          column.speed = .045 + Math.random() * .09;
           column.trail = 8 + Math.floor(Math.random() * 15);
           column.color = palette[Math.floor(Math.random() * palette.length)];
           column.chars = buildTrailGlyphs(column.trail);
