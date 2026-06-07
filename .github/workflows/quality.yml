@@ -21,6 +21,7 @@ jobs:
           urls: |
             https://www.mark-waldron.com/
           configPath: ./lighthouserc.json
+          runs: 3
           uploadArtifacts: true            # attaches the full reports to the run
           temporaryPublicStorage: true     # gives you a shareable report link in the logs
 
