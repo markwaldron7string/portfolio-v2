@@ -1,0 +1,37 @@
+name: Quality checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:        # lets you run it manually from the Actions tab
+  schedule:
+    - cron: "0 13 * * 1"    # every Monday ~13:00 UTC â catches rotted demo links
+
+jobs:
+  lighthouse:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            https://www.mark-waldron.com/
+          configPath: ./lighthouserc.json
+          uploadArtifacts: true            # attaches the full reports to the run
+          temporaryPublicStorage: true     # gives you a shareable report link in the logs
+
+  links:
+    name: Link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links in HTML
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --verbose "./**/*.html"
+          fail: true                       # fail the job if any link is dead

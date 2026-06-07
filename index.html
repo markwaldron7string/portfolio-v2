@@ -4,6 +4,13 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Mark Waldron — Frontend Developer</title>
+<meta name="description" content="Mark Waldron is a frontend developer in Cheyenne, WY focused on React, TypeScript, and clean UI — building fast, polished, real-world interfaces." />
+<meta property="og:title" content="Mark Waldron — Frontend Developer" />
+<meta property="og:description" content="Mark Waldron is a frontend developer in Cheyenne, WY focused on React, TypeScript, and clean UI — building fast, polished, real-world interfaces." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.mark-waldron.com/" />
+<meta property="og:image" content="https://www.mark-waldron.com/profilepic.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -204,7 +211,7 @@
   .stack-cat:hover{border-color:var(--line-2);background:var(--panel-2)}
   .stack-cat .cat-head{display:flex;align-items:center;gap:10px;margin-bottom:18px}
   .stack-cat .cat-head .ic{width:32px;height:32px;border-radius:8px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent)}
-  .stack-cat .cat-head h4{font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--muted);font-weight:500;margin:0;text-transform:lowercase;letter-spacing:.02em}
+  .stack-cat .cat-head h3{font-size:13px;font-family:'JetBrains Mono',monospace;color:var(--muted);font-weight:500;margin:0;text-transform:lowercase;letter-spacing:.02em}
   .stack-list{display:flex;flex-direction:column;gap:10px}
   .stack-item{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text)}
   .stack-item .bullet{width:6px;height:6px;border-radius:50%;background:var(--accent-3);opacity:.7}
@@ -222,7 +229,7 @@
   .project:hover .p-title{color:var(--accent)}
   .project:hover .p-arrow{transform:translate(4px,-4px);color:var(--accent)}
   .project:hover .p-shot img{transform:scale(1.04);filter:none}
-  .p-num{font-family:'JetBrains Mono',monospace;color:var(--dim);font-size:13px}
+  .p-num{font-family:'JetBrains Mono',monospace;color:#8a909c;font-size:13px}
   .p-shot{aspect-ratio:16/10;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg-2)}
   .p-shot img{width:100%;height:100%;display:block;object-fit:cover;filter:saturate(.88) contrast(1.04);transition:.2s}
   .p-info h3{font-size:20px;font-weight:500;margin:0 0 6px;letter-spacing:-.01em;transition:.2s}
@@ -273,7 +280,7 @@
   .social-row a:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);transform:translateY(-2px)}
 
   /* Footer */
-  footer{padding:40px 0;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim)}
+  footer{padding:40px 0;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:12px;color:#8a909c}
   footer .row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
   footer .row .right{display:flex;gap:24px}
 
@@ -329,6 +336,8 @@
     </div>
   </div>
 </nav>
+
+<main>
 
 <section class="hero">
   <div class="grid-bg"></div>
@@ -425,7 +434,7 @@
           <span class="ic">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
           </span>
-          <h4>languages</h4>
+          <h3>languages</h3>
         </div>
         <div class="stack-list">
           <div class="stack-item"><span class="bullet"></span>JavaScript</div>
@@ -439,7 +448,7 @@
           <span class="ic">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>
           </span>
-          <h4>frameworks</h4>
+          <h3>frameworks</h3>
         </div>
         <div class="stack-list">
           <div class="stack-item"><span class="bullet"></span>React</div>
@@ -453,7 +462,7 @@
           <span class="ic">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
           </span>
-          <h4>services</h4>
+          <h3>services</h3>
         </div>
         <div class="stack-list">
           <div class="stack-item"><span class="bullet"></span>Firebase</div>
@@ -467,7 +476,7 @@
           <span class="ic">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>
           </span>
-          <h4>design &amp; tools</h4>
+          <h3>design &amp; tools</h3>
         </div>
         <div class="stack-list">
           <div class="stack-item"><span class="bullet"></span>Figma</div>
@@ -656,6 +665,8 @@
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="container row">
