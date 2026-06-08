@@ -410,6 +410,7 @@
   }
   .contact-modal__head p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
   .contact-form{display:flex;flex-direction:column;gap:14px}
+  .contact-form__botcheck{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
   .contact-form label{
     display:flex;flex-direction:column;gap:6px;
     font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.02em;
@@ -846,6 +847,7 @@
           <p>I'll get back to you as soon as I can.</p>
         </div>
         <form class="contact-form" id="contact-form" novalidate>
+          <input type="checkbox" name="botcheck" class="contact-form__botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <label>
             Name
             <input type="text" name="name" autocomplete="name" required placeholder="Your name" />
@@ -1186,7 +1188,7 @@
     });
   });
 
-  // Free at https://web3forms.com - register with contact@mark-waldron.com to get your key.
+  // Key at https://web3forms.com
   const WEB3FORMS_ACCESS_KEY = '1915556d-5569-4112-ab63-585fe764507d';
 
   const contactModal = document.getElementById('contact-modal');
@@ -1294,15 +1296,10 @@
       }
 
       const formData = new FormData(contactForm);
-      const payload = {
-        access_key: WEB3FORMS_ACCESS_KEY,
-        subject: `Portfolio message from ${formData.get('name')}`,
-        from_name: 'Mark Waldron Portfolio',
-        name: formData.get('name'),
-        email: formData.get('email'),
-        message: formData.get('message'),
-        replyto: formData.get('email')
-      };
+      formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+      formData.append('subject', `Portfolio message from ${formData.get('name')}`);
+      formData.append('from_name', 'Mark Waldron Portfolio');
+      formData.append('replyto', formData.get('email'));
 
       contactFormSubmit.disabled = true;
       contactFormSubmit.textContent = 'Sending...';
@@ -1312,14 +1309,16 @@
       try{
         const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
-          },
-          body: JSON.stringify(payload)
+          body: formData
         });
 
-        const result = await response.json();
+        let result = {};
+        try{
+          result = await response.json();
+        }catch(parseError){
+          throw new Error('Unexpected response from contact service.');
+        }
+
         if(!response.ok || !result.success){
           throw new Error(result.message || 'Request failed');
         }
@@ -1333,7 +1332,8 @@
         contactFormSubmit.textContent = 'Close';
         contactFormSubmit.onclick = closeContactModal;
       }catch(error){
-        contactFormStatus.textContent = 'Something went wrong. Please try again or email contact@mark-waldron.com directly.';
+        const detail = error instanceof Error ? error.message : 'Request failed';
+        contactFormStatus.textContent = `${detail} If this keeps happening, email contact@mark-waldron.com directly.`;
         contactFormStatus.className = 'contact-form__status is-error';
         contactFormSubmit.disabled = false;
         contactFormSubmit.innerHTML = 'Send message <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>';
