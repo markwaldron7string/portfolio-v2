@@ -1,8 +1,8 @@
-# Mark Waldron — Developer Portfolio
+# Mark Waldron - Developer Portfolio
 
 [![Quality checks](https://github.com/markwaldron7string/portfolio-v2/actions/workflows/quality.yml/badge.svg)](https://github.com/markwaldron7string/portfolio-v2/actions/workflows/quality.yml)
 
-My personal portfolio — a fast, accessible, single-page site built from scratch with vanilla HTML, CSS, and JavaScript.
+My personal portfolio - a fast, accessible, single-page site built from scratch with vanilla HTML, CSS, and JavaScript.
 
 **Live:** [mark-waldron.com](https://www.mark-waldron.com/)
 
@@ -12,7 +12,7 @@ My personal portfolio — a fast, accessible, single-page site built from scratc
 
 I'm a frontend developer based in Cheyenne, WY, focused on React, clean UI, and real-world projects that feel fast, clear, and polished. I started my coding journey through Frontend Simplified, building a foundation in HTML, CSS, JavaScript, and React, and have since shipped projects spanning client tools, AI product flows, e-commerce, and marketing sites.
 
-This repository is the source for my portfolio site itself. It's intentionally dependency-free — no framework, no build step — so the site stays small and loads instantly, while the quality bar is enforced automatically in CI (see below).
+This repository is the source for my portfolio site itself. It's intentionally dependency-free - no framework, no build step - so the site stays small and loads instantly, while the quality bar is enforced automatically in CI (see below).
 
 ## Tech stack
 
@@ -37,14 +37,14 @@ This repository is the source for my portfolio site itself. It's intentionally d
 
 Every push runs an automated quality gate via GitHub Actions ([`.github/workflows/quality.yml`](.github/workflows/quality.yml)):
 
-- **Lighthouse CI** — audits the live site and fails the build if Performance, Accessibility, Best Practices, or SEO drops below a 90 score (thresholds in [`lighthouserc.json`](lighthouserc.json)). Runs are taken as a median of multiple passes to smooth out network variance.
-- **Link checking** — [lychee](https://github.com/lycheeverse/lychee-action) scans every link in the HTML, including the external project demos, and fails on any dead link. A weekly scheduled run catches demos that go down over time.
+- **Lighthouse CI** - audits the live site and fails the build if Performance, Accessibility, Best Practices, or SEO drops below a 90 score (thresholds in [`lighthouserc.json`](lighthouserc.json)). Runs are taken as a median of multiple passes to smooth out network variance.
+- **Link checking** - [lychee](https://github.com/lycheeverse/lychee-action) scans every link in the HTML, including the external project demos, and fails on any dead link. A weekly scheduled run catches demos that go down over time.
 
 The site is built to clear these gates honestly: semantic landmarks, a proper heading hierarchy, WCAG AA color contrast, a `<picture>` element serving an optimized WebP hero image with a JPEG fallback, and explicit image dimensions to keep layout shift near zero.
 
 ## Running locally
 
-No build step required — it's a static site. Clone and serve the folder with anything that serves static files:
+No build step required - it's a static site. Clone and serve the folder with anything that serves static files:
 
 ```bash
 git clone https://github.com/markwaldron7string/portfolio-v2.git
