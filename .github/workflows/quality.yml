@@ -15,15 +15,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run Lighthouse CI
+      - name: Run Lighthouse CI (production)
+        if: github.event_name != 'pull_request'
         uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
             https://www.mark-waldron.com/
           configPath: ./lighthouserc.json
           runs: 3
-          uploadArtifacts: true            # attaches the full reports to the run
-          temporaryPublicStorage: true     # gives you a shareable report link in the logs
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: Serve site locally for PR audit
+        if: github.event_name == 'pull_request'
+        run: |
+          npx --yes serve . -l 3000 &
+          sleep 3
+
+      - name: Run Lighthouse CI (PR preview)
+        if: github.event_name == 'pull_request'
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            http://127.0.0.1:3000/
+          configPath: ./lighthouserc.json
+          runs: 3
+          uploadArtifacts: true
+          temporaryPublicStorage: true
 
   links:
     name: Link check

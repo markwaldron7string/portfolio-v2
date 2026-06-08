@@ -882,6 +882,7 @@
 <script>
   const matrixCanvas = document.getElementById('matrix-rain');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const startMatrixRain = () => {
   if(matrixCanvas && !prefersReducedMotion){
     const ctx = matrixCanvas.getContext('2d');
     const glyphs = '01{}[]<>/=';
@@ -965,6 +966,12 @@
         drawMatrix();
       }
     });
+  }
+  };
+  if('requestIdleCallback' in window){
+    requestIdleCallback(startMatrixRain, { timeout: 1800 });
+  }else{
+    window.addEventListener('load', startMatrixRain, { once: true });
   }
 
   const cheyenneOffset = document.getElementById('cheyenne-offset');
@@ -1179,6 +1186,9 @@
     });
   });
 
+  // Free at https://web3forms.com - register with contact@mark-waldron.com to get your key.
+  const WEB3FORMS_ACCESS_KEY = '';
+
   const contactModal = document.getElementById('contact-modal');
   const contactForm = document.getElementById('contact-form');
   const contactFormStatus = document.getElementById('contact-form-status');
@@ -1277,14 +1287,21 @@
       event.preventDefault();
       if(!contactForm.reportValidity()) return;
 
+      if(!WEB3FORMS_ACCESS_KEY){
+        contactFormStatus.textContent = 'Contact form is not configured yet. Add your Web3Forms access key in index.html.';
+        contactFormStatus.className = 'contact-form__status is-error';
+        return;
+      }
+
       const formData = new FormData(contactForm);
       const payload = {
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: `Portfolio message from ${formData.get('name')}`,
+        from_name: 'Mark Waldron Portfolio',
         name: formData.get('name'),
         email: formData.get('email'),
         message: formData.get('message'),
-        _subject: `Portfolio message from ${formData.get('name')}`,
-        _template: 'table',
-        _captcha: 'false'
+        replyto: formData.get('email')
       };
 
       contactFormSubmit.disabled = true;
@@ -1293,7 +1310,7 @@
       contactFormStatus.className = 'contact-form__status';
 
       try{
-        const response = await fetch('https://formsubmit.co/ajax/contact@mark-waldron.com', {
+        const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -1302,7 +1319,10 @@
           body: JSON.stringify(payload)
         });
 
-        if(!response.ok) throw new Error('Request failed');
+        const result = await response.json();
+        if(!response.ok || !result.success){
+          throw new Error(result.message || 'Request failed');
+        }
 
         contactModal.classList.add('is-success');
         contactForm.hidden = true;
