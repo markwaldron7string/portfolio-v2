@@ -12,6 +12,13 @@
 <meta property="og:image" content="https://www.mark-waldron.com/profilepic.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <link rel="icon" type="image/png" href="favicon.png" />
+<script>
+  (function(){
+    var s=localStorage.getItem('portfolio-theme');
+    var d=window.matchMedia('(prefers-color-scheme:dark)').matches;
+    if((s==='light')||(!s&&!d))document.documentElement.setAttribute('data-theme','light');
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
@@ -38,6 +45,11 @@
     --yellow:#d29922;
     --purple:#b75bd1;     /* matrix purple  secondary */
     --purple-soft:rgba(183,91,209,.12);
+    --nav-bg:rgba(11,12,14,.7);
+    --grid-line:rgba(255,255,255,.095);
+    --pulse-color:rgba(98,243,109,.5);
+    --pulse-color-0:rgba(98,243,109,0);
+    --hero-overlay:linear-gradient(90deg,rgba(8,10,12,.82) 0%,rgba(8,10,12,.58) 44%,rgba(8,10,12,.18) 100%);
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Inter',ui-sans-serif,system-ui,sans-serif;font-feature-settings:"ss01","cv11";-webkit-font-smoothing:antialiased}
@@ -56,8 +68,8 @@
   .grid-bg{
     position:absolute;inset:0;z-index:0;pointer-events:none;
     background-image:
-      linear-gradient(to right, rgba(255,255,255,.095) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,.095) 1px, transparent 1px);
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
     background-size:64px 64px;
     opacity:1;
     -webkit-mask-image:radial-gradient(ellipse 86% 68% at 44% 8%, #000 42%, rgba(0,0,0,.58) 72%, transparent 100%);
@@ -67,7 +79,7 @@
   /* Nav */
   nav.top{
     position:sticky;top:0;z-index:20;
-    background:rgba(11,12,14,.7);
+    background:var(--nav-bg);
     backdrop-filter:blur(12px);
     border-bottom:1px solid var(--line);
   }
@@ -92,14 +104,14 @@
     font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
   }
   .status .pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 var(--accent-3);animation:pulse 2s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(98,243,109,.5)}70%{box-shadow:0 0 0 8px rgba(98,243,109,0)}100%{box-shadow:0 0 0 0 rgba(98,243,109,0)}}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 var(--pulse-color)}70%{box-shadow:0 0 0 8px var(--pulse-color-0)}100%{box-shadow:0 0 0 0 var(--pulse-color-0)}}
 
   /* Hero */
   section{position:relative;z-index:1}
   .hero{padding:96px 0 80px;position:relative;overflow:hidden}
   .hero::before{
     content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
-    background:linear-gradient(90deg,rgba(8,10,12,.82) 0%,rgba(8,10,12,.58) 44%,rgba(8,10,12,.18) 100%);
+    background:var(--hero-overlay);
   }
   .hero .container{position:relative;z-index:2}
   .hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:64px;align-items:center}
@@ -119,8 +131,8 @@
   }
   .btn-primary{background:var(--accent);color:#061208;border-color:rgba(98,243,109,.55);box-shadow:0 0 18px rgba(98,243,109,.18);transform:translateY(0)}
   .btn-primary:hover{background:var(--accent-soft);color:var(--text);border-color:var(--accent);box-shadow:0 0 22px rgba(98,243,109,.45);transform:translateY(-1px)}
-  .btn-ghost{background:rgba(17,24,26,.74);border-color:rgba(183,91,209,.52);color:var(--text)}
-  .btn-ghost:hover{background:var(--purple-soft);color:var(--text);border-color:var(--purple);box-shadow:0 0 18px rgba(183,91,209,.18)}
+  .btn-ghost{background:rgba(23, 17, 26, 0.74);border-color:rgba(183,91,209,.52);color:var(--text)}
+  .btn-ghost:hover{background:purple;color:var(--text);border-color:var(--purple);box-shadow:0 0 18px rgba(183,91,209,.18)}
   .meta-row{display:flex;gap:24px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-top:40px;flex-wrap:wrap}
   .meta-row span{display:flex;align-items:center;gap:8px}
   .meta-row svg{width:14px;height:14px;color:var(--accent)}
@@ -466,6 +478,76 @@
     .contact-modal.is-revealing .contact-modal__door--left{transform:translateX(-100%)}
     .contact-modal.is-revealing .contact-modal__door--right{transform:translateX(100%)}
   }
+
+  /* Theme toggle button */
+  .theme-toggle{
+    width:36px;height:36px;border-radius:8px;
+    border:1px solid var(--line);background:var(--panel);color:var(--muted);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:.15s;flex-shrink:0;padding:0;
+  }
+  .theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+  .theme-icon--sun{display:none}
+  [data-theme="light"] .theme-icon--moon{display:none}
+  [data-theme="light"] .theme-icon--sun{display:block}
+
+  /* Light mode */
+  [data-theme="light"]{
+    --bg:#f7f4fb;
+    --bg-2:#ede9f7;
+    --panel:#e6e0f4;
+    --panel-2:#ddd6ec;
+    --line:#ccc2e0;
+    --line-2:#8a35c5;
+    --text:#150e20;
+    --muted:#5c5070;
+    --dim:#9080a8;
+    --accent:#8a28c0;
+    --accent-2:#267a38;
+    --accent-3:#9430cc;
+    --accent-soft:rgba(138,40,192,.1);
+    --green:#267a38;
+    --blue:#3868d0;
+    --yellow:#9c7410;
+    --purple:#267a38;
+    --purple-soft:rgba(38,122,56,.1);
+    --nav-bg:rgba(240,236,250,.88);
+    --grid-line:rgba(90,50,150,.065);
+    --pulse-color:rgba(138,40,192,.5);
+    --pulse-color-0:rgba(138,40,192,0);
+    --hero-overlay:linear-gradient(90deg,rgba(247,244,251,.88) 0%,rgba(247,244,251,.62) 44%,rgba(247,244,251,.18) 100%);
+  }
+  [data-theme="light"] .matrix-rain{mix-blend-mode:multiply;opacity:.26}
+  [data-theme="light"] .terminal{background:#edeaf6!important;border-color:var(--line)!important}
+  [data-theme="light"] .terminal-head{background:#e2ddf0!important;border-color:var(--line)!important}
+  [data-theme="light"] .tk-comment{color:#7a80a8}
+  [data-theme="light"] .tk-kw{color:#7c3aed}
+  [data-theme="light"] .tk-fn{color:#0369a1}
+  [data-theme="light"] .tk-str{color:#1a7a40}
+  [data-theme="light"] .tk-prop{color:#0369a1}
+  [data-theme="light"] .tk-var{color:#1e1b30}
+  [data-theme="light"] .tk-num{color:#7c3aed}
+  [data-theme="light"] .heatmap div{background:#d8cee8}
+  [data-theme="light"] .h1{background:rgba(138,40,192,.2)!important}
+  [data-theme="light"] .h2{background:rgba(138,40,192,.4)!important}
+  [data-theme="light"] .h3{background:rgba(138,40,192,.65)!important}
+  [data-theme="light"] .h4{background:rgba(138,40,192,.9)!important}
+  [data-theme="light"] .about-card::before{background:linear-gradient(135deg,rgba(183,91,209,.38),rgba(98,243,109,.18) 54%,transparent 82%)}
+  [data-theme="light"] .photo-label{border-color:rgba(138,40,192,.32)}
+  [data-theme="light"] .btn-primary{color:#fff;border-color:rgba(138,40,192,.55);box-shadow:0 0 18px rgba(138,40,192,.18)}
+  [data-theme="light"] .btn-primary:hover{color:#000;box-shadow:0 0 22px rgba(138,40,192,.45)}
+  [data-theme="light"] .btn-ghost{background:rgba(238,234,250,.9);border-color:rgba(148,136,178,.38);color:var(--text)}
+  [data-theme="light"] .btn-ghost:hover{background:rgba(224,218,244,.95);border-color:rgba(155,142,185,.58);color:var(--text);box-shadow:0 0 14px rgba(155,142,185,.14)}
+  [data-theme="light"] .hero-links a:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+  [data-theme="light"] .hero-links a{border-color:rgba(138,40,192,.3);background:rgba(138,40,192,.1);color:var(--text)}
+  [data-theme="light"] .nav-cta{border-color:rgba(138,40,192,.4)}
+  [data-theme="light"] .nav-cta:hover{background:rgba(138,40,192,.15)}
+  [data-theme="light"] .contact-form input:focus,[data-theme="light"] .contact-form textarea:focus{box-shadow:0 0 0 3px rgba(138,40,192,.12)}
+  [data-theme="light"] .contact-form__submit{color:#fff;border-color:rgba(138,40,192,.55);box-shadow:0 0 18px rgba(138,40,192,.18)}
+  [data-theme="light"] .contact-form__submit:hover:not(:disabled){box-shadow:0 0 22px rgba(138,40,192,.45)}
+  [data-theme="light"] .contact-modal__logo-glow-container{filter:drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 18px var(--accent)) drop-shadow(0 0 45px rgba(138,40,192,.75))}
+  [data-theme="light"] .contact-modal__panel{box-shadow:0 40px 100px -24px rgba(60,20,90,.22),0 0 0 1px rgba(138,40,192,.08)}
+  [data-theme="light"] .contact-modal__backdrop{background:rgba(210,200,230,.76)}
 </style>
 </head>
 <body>
@@ -484,6 +566,10 @@
       <a href="#work"><span class="num">03</span>work</a>
       <a href="#contact"><span class="num">04</span>contact</a>
       <a href="#contact" class="nav-cta">$ ./hire-me.sh</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
+        <svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
     </div>
   </div>
 </nav>
@@ -664,7 +750,7 @@
 
       <a class="fp-card" href="https://buyersagent-leadscraper.vercel.app/" target="_blank" rel="noopener noreferrer">
         <div class="fp-preview">
-          <img src="assets/leadscraper.png" alt="Lead Scraper dashboard screenshot" loading="lazy" />
+          <img src="assets/leadscraper.png" alt="Lead Scraper dashboard screenshot" loading="lazy" class="ls-img" />
         </div>
         <div class="fp-body">
           <h3>Lead Scraper  Client Tool</h3>
@@ -697,7 +783,7 @@
 
       <a class="project" href="https://buyersagent-leadscraper.vercel.app/" target="_blank" rel="noopener noreferrer">
         <div class="p-num">/01</div>
-        <div class="p-shot"><img src="assets/leadscraper.png" alt="Lead Scraper screenshot" loading="lazy" /></div>
+        <div class="p-shot"><img src="assets/leadscraper.png" alt="Lead Scraper screenshot" loading="lazy" class="ls-img" /></div>
         <div class="p-info">
           <h3 class="p-title">Lead Scraper</h3>
           <div class="p-meta"><span>2026</span><span>Full-stack tool</span><span>Client workflow</span></div>
@@ -898,17 +984,43 @@
 </div>
 
 <script>
+  // Theme toggle
+  const swapLeadscraper = (isLight) => {
+    document.querySelectorAll('.ls-img').forEach(img => {
+      img.src = isLight ? 'assets/leadscraper-light.png' : 'assets/leadscraper.png';
+    });
+  };
+
+  (function(){
+    const toggle = document.getElementById('theme-toggle');
+    if(!toggle) return;
+    toggle.addEventListener('click', () => {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      if(isLight){
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('portfolio-theme', 'dark');
+        swapLeadscraper(false);
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('portfolio-theme', 'light');
+        swapLeadscraper(true);
+      }
+      if(window._matrixResize) window._matrixResize();
+    });
+    // Apply correct image for initial theme
+    if(document.documentElement.getAttribute('data-theme') === 'light') swapLeadscraper(true);
+  })();
+
   const matrixCanvas = document.getElementById('matrix-rain');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const startMatrixRain = () => {
   if(matrixCanvas && !prefersReducedMotion){
     const ctx = matrixCanvas.getContext('2d');
     const glyphs = '01{}[]<>/=';
-    const palette = [
-      '98,243,109',
-      '98,243,109',
-      '210,130,255'
-    ];
+    const getMatrixPalette = () =>
+      document.documentElement.getAttribute('data-theme') === 'light'
+        ? ['138,40,192','138,40,192','42,128,64']
+        : ['98,243,109','98,243,109','210,130,255'];
     const fontSize = 14;
     const glyphShiftMinMs = 120;
     const glyphShiftRangeMs = 120;
@@ -925,6 +1037,7 @@
       matrixCanvas.height = Math.floor(window.innerHeight * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       const count = Math.ceil(window.innerWidth / fontSize);
+      const pal = getMatrixPalette();
       columns = Array.from({length: count}, (_, i) => {
         const trail = 8 + Math.floor(Math.random() * 15);
         return {
@@ -932,7 +1045,7 @@
           y: Math.random() * window.innerHeight,
           speed: .045 + Math.random() * .09,
           trail,
-          color: palette[i % palette.length],
+          color: pal[i % pal.length],
           chars: buildTrailGlyphs(trail),
           glyphShiftDelay: nextGlyphShiftDelay(),
           lastGlyphShift: 0
@@ -965,7 +1078,8 @@
           column.y = -fontSize;
           column.speed = .045 + Math.random() * .09;
           column.trail = 8 + Math.floor(Math.random() * 15);
-          column.color = palette[Math.floor(Math.random() * palette.length)];
+          const cp = getMatrixPalette();
+          column.color = cp[Math.floor(Math.random() * cp.length)];
           column.chars = buildTrailGlyphs(column.trail);
           column.glyphShiftDelay = nextGlyphShiftDelay();
           column.lastGlyphShift = now;
@@ -977,6 +1091,7 @@
     resizeMatrix();
     drawMatrix();
     window.addEventListener('resize', resizeMatrix);
+    window._matrixResize = resizeMatrix;
     document.addEventListener('visibilitychange', () => {
       if(document.hidden){
         cancelAnimationFrame(animationId);
