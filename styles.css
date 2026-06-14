@@ -470,7 +470,10 @@
   .theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
   .theme-icon--sun{display:none}
   [data-theme="light"] .theme-icon--moon{display:none}
-  [data-theme="light"] .theme-icon--sun{display:block}
+  [data-theme="light"] .theme-icon--sun{display:block;color:rgba(14,125,153,.64)}
+  [data-theme="light"] .theme-toggle{border-color:rgba(14,125,153,.64)}
+  [data-theme="light"] .theme-toggle:hover{background-color:rgba(14,125,153,.64)}
+  [data-theme="light"] .theme-toggle:hover .theme-icon--sun{color:rgb(158, 202, 224)}
 
   /* Light mode */
   [data-theme="light"]{
@@ -527,6 +530,7 @@
   [data-theme="light"] .terminal-head{background:rgba(8,18,30,.88)!important;border-color:rgba(14,125,153,.28)!important}
   [data-theme="light"] .terminal-head .file{color:rgba(180,210,235,.75)}
   [data-theme="light"] .cursor{background:#0e7d99}
+  [data-theme="light"] .status .pulse{background:whitesmoke}
   [data-theme="light"] .about-card,
   [data-theme="light"] .stat,
   [data-theme="light"] .stack-cat,
@@ -559,8 +563,8 @@
   [data-theme="light"] .btn-primary:hover{color:#fff;box-shadow:0 0 22px rgba(14,125,153,.45)}
   [data-theme="light"] .btn-ghost{background:rgba(255,255,255,.6);border-color:rgba(200, 167, 150, 0.42);color:var(--text)}
   [data-theme="light"] .btn-ghost:hover{background:rgba(255, 255, 255, 0.82);border-color:rgba(14,125,153,.5);color:var(--text);box-shadow:0 0 14px rgba(14,125,153,.14)}
-  [data-theme="light"] .nav-cta{border-color:rgba(14,125,153,.4)}
-  [data-theme="light"] .nav-cta:hover{background:rgba(14, 125, 153, 0.429)}
+  [data-theme="light"] .nav-cta{border-color:rgba(14, 125, 153, 0.64)}
+  [data-theme="light"] .nav-cta:hover{background:rgba(14, 125, 153, 0.64)}
   [data-theme="light"] .contact-form input:focus,[data-theme="light"] .contact-form textarea:focus{box-shadow:0 0 0 3px rgba(14,125,153,.12)}
   [data-theme="light"] .contact-modal__head h3{color:#0e7d99}
   [data-theme="light"] .contact-form__submit{background:#0e7d99;color:#fff;border-color:rgba(14,125,153,.55);box-shadow:0 0 18px rgba(14,125,153,.20)}
@@ -614,7 +618,7 @@
   [data-theme="light"] .hero .eyebrow::before{background:rgba(143,220,255,.75)}
   [data-theme="light"] .hero .meta-row,
   [data-theme="light"] .hero .meta-row .status{color:rgba(232,246,255,.95)}
-  [data-theme="light"] .hero .meta-row svg{color:var(--accent)}
+  [data-theme="light"] .hero .meta-row svg{color:whitesmoke}
   [data-theme="light"] .hero-links a{
     background:rgba(6,18,32,.52);
     border-color:rgba(80,130,160,.45);
