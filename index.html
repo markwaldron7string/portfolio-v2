@@ -103,8 +103,9 @@
     display:inline-flex;align-items:center;gap:8px;
     font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
   }
-  .status .pulse{width:8px;height:8px;border-radius:50%;background:whitesmoke;box-shadow:0 0 0 0 var(--accent-3);animation:pulse 2s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 var(--pulse-color)}70%{box-shadow:0 0 0 8px var(--pulse-color-0)}100%{box-shadow:0 0 0 0 var(--pulse-color-0)}}
+  .status .pulse{width:8px;height:8px;border-radius:50%;background:whitesmoke;position:relative}
+  .status .pulse::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--pulse-color);animation:pulse 2s infinite;will-change:transform,opacity}
+  @keyframes pulse{0%{transform:scale(1);opacity:1}70%{transform:scale(2.8);opacity:0}100%{transform:scale(1);opacity:0}}
 
   /* Hero */
   section{position:relative;z-index:1}
@@ -550,6 +551,7 @@
   [data-theme="light"] nav.top .nav-links a .num{color:rgba(180,210,235,.75)}
   [data-theme="light"] .terminal{background:rgba(4,12,22,.78)!important;border-color:rgba(14,125,153,.35)!important;backdrop-filter:blur(16px) saturate(130%);box-shadow:0 24px 70px -28px rgba(0,8,18,.55),0 0 0 1px rgba(14,125,153,.18)}
   [data-theme="light"] .terminal-head{background:rgba(8,18,30,.88)!important;border-color:rgba(14,125,153,.28)!important}
+  [data-theme="light"] .terminal-head .file{color:rgba(180,210,235,.75)}
   [data-theme="light"] .cursor{background:#0e7d99}
   [data-theme="light"] .about-card,
   [data-theme="light"] .stat,
@@ -992,7 +994,7 @@
     <div class="atm-cloud ac5"></div>
   </div>
   <div class="atm-landscape">
-    <img class="atm-earth-photo" src="assets/landscape.jpg" alt="" decoding="async" />
+    <img class="atm-earth-photo" src="assets/landscape.webp" alt="" decoding="async" />
   </div>
   <div class="atm-grain"></div>
 </div>
@@ -1198,7 +1200,7 @@
 
       <a class="fp-card" href="https://buyersagent-leadscraper.vercel.app/" target="_blank" rel="noopener noreferrer">
         <div class="fp-preview">
-          <img src="assets/leadscraper.png" alt="Lead Scraper dashboard screenshot" loading="lazy" class="ls-img" />
+          <img src="assets/leadscraper.webp" width="1200" height="730" alt="Lead Scraper dashboard screenshot" loading="lazy" class="ls-img" />
         </div>
         <div class="fp-body">
           <h3>Lead Scraper  Client Tool</h3>
@@ -1212,7 +1214,7 @@
 
       <a class="fp-card" href="https://skinstric-app-tau.vercel.app/" target="_blank" rel="noopener noreferrer">
         <div class="fp-preview">
-          <img src="assets/skinstric.png" alt="Skinstric AI skincare app screenshot" loading="lazy" />
+          <img src="assets/skinstric.webp" width="1200" height="790" alt="Skinstric AI skincare app screenshot" loading="lazy" />
         </div>
         <div class="fp-body">
           <h3>Skinstric  AI Skincare</h3>
@@ -1231,7 +1233,7 @@
 
       <a class="project" href="https://buyersagent-leadscraper.vercel.app/" target="_blank" rel="noopener noreferrer">
         <div class="p-num">/01</div>
-        <div class="p-shot"><img src="assets/leadscraper.png" alt="Lead Scraper screenshot" loading="lazy" class="ls-img" /></div>
+        <div class="p-shot"><img src="assets/leadscraper.webp" width="1200" height="730" alt="Lead Scraper screenshot" loading="lazy" class="ls-img" /></div>
         <div class="p-info">
           <h3 class="p-title">Lead Scraper</h3>
           <div class="p-meta"><span>2026</span><span>Full-stack tool</span><span>Client workflow</span></div>
@@ -1245,7 +1247,7 @@
 
       <a class="project" href="https://skinstric-app-tau.vercel.app/" target="_blank" rel="noopener noreferrer">
         <div class="p-num">/02</div>
-        <div class="p-shot"><img src="assets/skinstric.png" alt="Skinstric screenshot" loading="lazy" /></div>
+        <div class="p-shot"><img src="assets/skinstric.webp" width="1200" height="790" alt="Skinstric screenshot" loading="lazy" /></div>
         <div class="p-info">
           <h3 class="p-title">Skinstric</h3>
           <div class="p-meta"><span>2026</span><span>AI product flow</span></div>
@@ -1259,7 +1261,7 @@
 
       <a class="project" href="https://www.thewickedwoodsec.com/" target="_blank" rel="noopener noreferrer">
         <div class="p-num">/03</div>
-        <div class="p-shot"><img src="assets/WickedWoods.jpg" alt="The Wicked Woods Equestrian screenshot" loading="lazy" /></div>
+        <div class="p-shot"><img src="assets/WickedWoods.webp" width="400" height="237" alt="The Wicked Woods Equestrian screenshot" loading="lazy" /></div>
         <div class="p-info">
           <h3 class="p-title">The Wicked Woods Equestrian</h3>
           <div class="p-meta"><span>2026</span><span>Marketing site</span></div>
@@ -1273,7 +1275,7 @@
 
       <a class="project" href="https://www.dimibphoto.com/" target="_blank" rel="noopener noreferrer">
         <div class="p-num">/04</div>
-        <div class="p-shot"><img src="assets/dimibphoto.jpg" alt="DimiB Photography screenshot" loading="lazy" /></div>
+        <div class="p-shot"><img src="assets/dimibphoto.webp" width="400" height="252" alt="DimiB Photography screenshot" loading="lazy" /></div>
         <div class="p-info">
           <h3 class="p-title">DimiB Photography</h3>
           <div class="p-meta"><span>2026</span><span>Portfolio</span></div>
@@ -1287,7 +1289,7 @@
 
       <a class="project" href="https://lazycat-trees.vercel.app/" target="_blank" rel="noopener noreferrer">
         <div class="p-num">/05</div>
-        <div class="p-shot"><img src="assets/LazyCatTrees.jpg" alt="LazyCat Trees screenshot" loading="lazy" /></div>
+        <div class="p-shot"><img src="assets/LazyCatTrees.webp" width="400" height="287" alt="LazyCat Trees screenshot" loading="lazy" /></div>
         <div class="p-info">
           <h3 class="p-title">LazyCat Trees</h3>
           <div class="p-meta"><span>2026</span><span>E-commerce</span></div>
@@ -1301,7 +1303,7 @@
 
       <a class="project" href="https://advanced-virtual-internship-pied.vercel.app/" target="_blank" rel="noopener noreferrer">
         <div class="p-num">/06</div>
-        <div class="p-shot"><img src="assets/summarist.png" alt="Summarist screenshot" loading="lazy" /></div>
+        <div class="p-shot"><img src="assets/summarist.webp" width="400" height="229" alt="Summarist screenshot" loading="lazy" /></div>
         <div class="p-info">
           <h3 class="p-title">Summarist Library</h3>
           <div class="p-meta"><span>2025</span><span>Digital library</span></div>
@@ -1315,7 +1317,7 @@
 
       <a class="project" href="https://cryptogram-six.vercel.app/" target="_blank" rel="noopener noreferrer">
         <div class="p-num">/07</div>
-        <div class="p-shot"><img src="assets/cryptogram.png" alt="Cryptogram screenshot" loading="lazy" /></div>
+        <div class="p-shot"><img src="assets/cryptogram.webp" width="400" height="364" alt="Cryptogram screenshot" loading="lazy" /></div>
         <div class="p-info">
           <h3 class="p-title">Cryptogram</h3>
           <div class="p-meta"><span>2025</span><span>Dashboard</span></div>
@@ -1329,7 +1331,7 @@
 
       <a class="project" href="https://mark-internship.vercel.app/" target="_blank" rel="noopener noreferrer">
         <div class="p-num">/08</div>
-        <div class="p-shot"><img src="assets/ultraverse.png" alt="Ultraverse NFT screenshot" loading="lazy" /></div>
+        <div class="p-shot"><img src="assets/ultraverse.webp" width="400" height="256" alt="Ultraverse NFT screenshot" loading="lazy" /></div>
         <div class="p-info">
           <h3 class="p-title">Ultraverse  NFT Marketplace</h3>
           <div class="p-meta"><span>2025</span><span>Web3</span></div>
@@ -1435,7 +1437,7 @@
   // Theme toggle
   const swapLeadscraper = (isLight) => {
     document.querySelectorAll('.ls-img').forEach(img => {
-      img.src = isLight ? 'assets/leadscraper-light.png' : 'assets/leadscraper.png';
+      img.src = isLight ? 'assets/leadscraper-light.webp' : 'assets/leadscraper.webp';
     });
   };
 
