@@ -509,7 +509,7 @@
   [data-theme="light"] .about,
   [data-theme="light"] .stack,
   [data-theme="light"] .featured,
-  [data-theme="light"] .contact{border-top-color:rgba(180,210,230,.28)}
+  [data-theme="light"] .contact{border-top-color:transparent}
   [data-theme="light"] footer{border-top:none;background:transparent;padding:28px 0 36px}
   [data-theme="light"] .contact{padding-bottom:48px}
   [data-theme="light"] .project{border-top-color:rgba(80,120,140,.22)}
@@ -949,6 +949,17 @@
     position:absolute;inset:0;
     mix-blend-mode:soft-light;opacity:.12;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  }
+
+  @media(max-width:640px){
+    [data-theme="light"] .about,
+    [data-theme="light"] .stack,
+    [data-theme="light"] .featured,
+    [data-theme="light"] .contact{border-top-color:rgba(180,210,230,.28)}
+    [data-theme="light"] .section-head .rule,
+    [data-theme="light"] .about .section-head .rule,
+    [data-theme="light"] .stack .section-head .rule,
+    [data-theme="light"] .featured .section-head .rule{background:transparent}
   }
 
   @media(prefers-reduced-motion:reduce){
