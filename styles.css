@@ -568,7 +568,7 @@
   [data-theme="light"] .contact-form input:focus,[data-theme="light"] .contact-form textarea:focus{box-shadow:0 0 0 3px rgba(14,125,153,.12)}
   [data-theme="light"] .contact-modal__head h3{color:#0e7d99}
   [data-theme="light"] .contact-form__submit{background:#0e7d99;color:#fff;border-color:rgba(14,125,153,.55);box-shadow:0 0 18px rgba(14,125,153,.20)}
-  [data-theme="light"] .contact-form__submit:hover:not(:disabled){color:#0e7d99;box-shadow:0 0 22px rgba(14,125,153,.45)}
+  [data-theme="light"] .contact-form__submit:hover:not(:disabled){color:#0e7d99;box-shadow:0 0 22px rgba(14,125,153,.45); border-color:transparent;background:rgba(14,125,153,.1)}
   [data-theme="light"] .contact-modal__logo-glow-container{filter:drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 18px var(--accent)) drop-shadow(0 0 45px rgba(14,125,153,.7))}
   [data-theme="light"] .contact-modal__panel{box-shadow:0 40px 100px -24px rgba(20,60,90,.22),0 0 0 1px rgba(14,125,153,.08)}
   [data-theme="light"] .contact-modal__backdrop{background:rgba(200,222,235,.78)}
