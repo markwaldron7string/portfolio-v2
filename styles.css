@@ -369,6 +369,7 @@
     flex:1;background:#000;
     transition:transform .7s cubic-bezier(.22,1,.36,1);
   }
+  [data-theme="light"] .contact-modal__door{background: linear-gradient(45deg, rgb(98, 238, 243), rgb(91, 146, 209) 54%)}
   .contact-modal__door--left{
     transform-origin:right center;
   }
@@ -578,17 +579,19 @@
   [data-theme="light"] .h4{background:rgba(14,125,153,.9)!important}
   [data-theme="light"] .about-card::before{background:linear-gradient(135deg,rgba(14,125,153,.32),rgba(63,143,58,.16) 54%,transparent 82%)}
   [data-theme="light"] .photo-label{border-color:rgba(14,125,153,.32)}
-  [data-theme="light"] .btn-primary{color:#fff;border-color:rgba(14, 125, 153, 0.338);box-shadow:0 0 18px rgba(14,125,153,.20)}
+  [data-theme="light"] .btn-primary{color:#fff;border-color:rgba(14, 125, 153, 0.338);box-shadow:0 0 18px rgba(14, 125, 153, 0.759)}
   [data-theme="light"] .btn-primary:hover{color:rgb(20, 115, 150);text-shadow:rgba(255, 255, 255, 0.886) 0px 0px 6px; border-radius:0 0 22px rgba(14,125,153,.45)}
-  [data-theme="light"] .btn-ghost{background:rgba(255,255,255,.6);border-color:rgba(79, 183, 204, 0.42);color:var(--text)}
-  [data-theme="light"] .btn-ghost:hover{background:rgba(55, 62, 65, 0.82);border-color:rgba(14,125,153,.5);color:var(--text);box-shadow:0 0 14px rgba(14,125,153,.14)}
+  [data-theme="light"] .btn-ghost{background:rgba(210, 223, 232, 0.737);border-color:rgba(191, 223, 229, 0.484);color:var(--text);box-shadow:0 0 12px rgba(210, 223, 232, 0.637)}
+  [data-theme="light"] .btn-ghost:hover{background:rgba(55, 62, 65, 0.82);border-color:rgba(25, 134, 161, 0.087);color:var(--text);box-shadow:0 0 14px rgba(220, 228, 231, 0.763)}
   [data-theme="light"] .nav-cta{border-color:rgba(14, 125, 153, 0.64)}
   [data-theme="light"] .nav-cta:hover{background:rgba(14, 125, 153, 0.64)}
-  [data-theme="light"] .contact-form input:focus,[data-theme="light"] .contact-form textarea:focus{box-shadow:0 0 0 3px rgba(14,125,153,.12)}
+  [data-theme="light"] .contact-form input:focus,[data-theme="light"] .contact-form textarea:focus{box-shadow:0 0 0 3px rgba(32, 179, 216, 0.12)}
   [data-theme="light"] .contact-modal__head h3{color:var(--accent)}
   [data-theme="light"] .contact-form__submit{background:var(--accent);color:#fff;border-color:rgba(14,125,153,.55);box-shadow:0 0 18px rgba(14,125,153,.20)}
   [data-theme="light"] .contact-form__submit:hover:not(:disabled){color:var(--accent);box-shadow:0 0 22px rgba(14,125,153,.45); border-color:transparent;background:rgba(14,125,153,.1)}
   [data-theme="light"] .contact-modal__logo-glow-container{filter:drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 18px var(--accent)) drop-shadow(0 0 45px rgba(14,125,153,.7))}
+  [data-theme="light"] .contact-modal__logo-base,
+  [data-theme="light"] .contact-modal__logo-glow{background:#ffffff67}
   [data-theme="light"] .contact-modal__reveal{
     background:rgba(240,250,255,.22);
     border-color:rgba(160,205,230,.32);
@@ -668,8 +671,8 @@
     background:rgba(8,24,40,.68);
   }
   [data-theme="light"] .hero .btn-ghost{
-    background:rgba(255,255,255,.14);
-    border-color:rgba(80, 162, 217, 0.35);
+    background:rgba(255, 255, 255, 0.671);
+    border-color:rgba(194, 208, 216, 0.35);
     color:#21608b;
     text-shadow:rgba(255, 255, 255, 0.498) 0px 0px 6px;
   }
