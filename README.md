@@ -2,7 +2,7 @@
 
 [![Quality checks](https://github.com/markwaldron7string/portfolio-v2/actions/workflows/quality.yml/badge.svg)](https://github.com/markwaldron7string/portfolio-v2/actions/workflows/quality.yml)
 
-My personal portfolio - a fast, accessible, single-page site built from scratch with vanilla HTML, CSS, and JavaScript.
+My personal portfolio - a fast, accessible, single-page site built from scratch with vanilla HTML, CSS, and JavaScript. Includes a light/dark mode toggle with two distinct visual themes.
 
 **Live:** [mark-waldron.com](https://www.mark-waldron.com/)
 
@@ -13,6 +13,14 @@ My personal portfolio - a fast, accessible, single-page site built from scratch 
 I'm a frontend developer based in Cheyenne, WY, focused on React, clean UI, and real-world projects that feel fast, clear, and polished. I started my coding journey through Frontend Simplified, building a foundation in HTML, CSS, JavaScript, and React, and have since shipped projects spanning client tools, AI product flows, e-commerce, and marketing sites.
 
 This repository is the source for my portfolio site itself. It's intentionally dependency-free - no framework, no build step - so the site stays small and loads instantly, while the quality bar is enforced automatically in CI (see below).
+
+## Visual themes
+
+The site ships with two hand-crafted themes toggled by a nav button:
+
+**Dark mode (default)** — matrix-green terminal aesthetic with an animated canvas rain effect, glowing accents, and a dark glassmorphic panel system.
+
+**Light mode** — a layered atmospheric scroll: starfield fading into a dawn sky, animated cloud layers, a landscape photo strip, and an underwater bubble system at the bottom. Project cards, the featured grid, and the contact modal use frosted-glass panels with `backdrop-filter`. Section headings, hero text, and UI chrome are tuned independently for the light palette so nothing is a simple CSS variable swap.
 
 ## Tech stack
 
@@ -61,7 +69,9 @@ Then open the printed local URL (e.g. `http://localhost:8000`). You can also jus
 
 ```
 portfolio-v2/
-├── index.html                 # the entire site
+├── index.html                 # markup and page structure
+├── styles.css                 # all styles, including both theme variants
+├── main.js                    # theme toggle, matrix rain, atmosphere scroll, contact modal
 ├── assets/                    # project screenshots and images
 ├── profilepic.jpg             # hero image (JPEG fallback)
 ├── profilepic.webp            # hero image (optimized, served first)
