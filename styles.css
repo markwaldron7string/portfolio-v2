@@ -369,7 +369,7 @@
     flex:1;background:#000;
     transition:transform .7s cubic-bezier(.22,1,.36,1);
   }
-  [data-theme="light"] .contact-modal__door{background: linear-gradient(45deg, rgb(98, 238, 243), rgb(91, 146, 209) 54%)}
+  [data-theme="light"] .contact-modal__door{background: linear-gradient(135deg, rgb(84, 147, 190), rgb(164, 204, 222), rgb(111, 176, 222) 54%)}
   .contact-modal__door--left{
     transform-origin:right center;
   }
@@ -609,7 +609,7 @@
   [data-theme="light"] .contact-form textarea::placeholder{color:#8aacbc}
   [data-theme="light"] .contact-form__status.is-success{text-shadow:0 0 8px rgba(255,255,255,.9),0 0 18px rgba(255,255,255,.6)}
   [data-theme="light"] .contact-modal__panel{box-shadow:0 40px 100px -24px rgba(20,60,90,.22),0 0 0 1px rgba(14,125,153,.08)}
-  [data-theme="light"] .contact-modal__backdrop{background:rgba(200,222,235,.78)}
+  [data-theme="light"] .contact-modal__backdrop{background:rgba(235, 238, 240, 0.78)}
   [data-theme="light"] .contact{
     color:#eaf6ff;
     background:transparent;
