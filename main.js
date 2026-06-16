@@ -268,10 +268,10 @@
 
     const applyGithubStats = (stats) => {
       Object.entries(stats).forEach(([key, value]) => {
-        const target = githubStatsRoot.querySelector(`[data-github-stat="${key}"]`);
-        if(target && Number.isFinite(value)){
+        if(!Number.isFinite(value)) return;
+        document.querySelectorAll(`[data-github-stat="${key}"]`).forEach((target) => {
           target.textContent = formatStat(value);
-        }
+        });
       });
 
       if(stats.syncedAt){
@@ -303,7 +303,7 @@
   // Build heatmap (52 weeks x 7 days)
   const hm = document.getElementById('heatmap');
   if(hm){
-    const seed = 282;
+    const seed = 251;
     const total = 52*7;
     let arr=[];
     // weighted random
@@ -673,4 +673,89 @@
       }, 60);
     });
   }
+})();
+
+// Solar dimming — dim the sun, sky veil, and hero when clouds pass over the sun
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+
+  var root      = document.documentElement;
+  var veil      = document.getElementById('atm-veil');
+  var heroCont  = document.querySelector('.hero .container');
+  var sunEl     = document.querySelector('.atm-sun');
+  var clouds    = null; // populated lazily so DOM is ready
+  var dim       = 0;
+  // Clouds have filter:blur(14px); expand their hit-box by this much on each side
+  // so overlap registers before the visual cloud edge reaches the sun core.
+  var BLUR_PAD  = 22;
+
+  function isLight(){ return root.getAttribute('data-theme') === 'light'; }
+  function clamp(v, lo, hi){ return v < lo ? lo : v > hi ? hi : v; }
+
+  // Returns fraction 0–1 of the sun's bright core that the (expanded) cloud rect covers.
+  function overlapRatio(cr, sr){
+    var cl  = cr.left   - BLUR_PAD,  crr = cr.right  + BLUR_PAD;
+    var ct  = cr.top    - BLUR_PAD,  cb  = cr.bottom + BLUR_PAD;
+    // Target only the inner 68% of the sun bbox — the bright disc, not the halo.
+    var cx  = (sr.left  + sr.right)  * 0.5;
+    var cy  = (sr.top   + sr.bottom) * 0.5;
+    var hw  = sr.width  * 0.34,      hh  = sr.height * 0.34;
+    var sl  = cx - hw,  sr2 = cx + hw,  st = cy - hh,  sb = cy + hh;
+    var ow  = Math.max(0, Math.min(crr, sr2) - Math.max(cl, sl));
+    var oh  = Math.max(0, Math.min(cb,  sb)  - Math.max(ct, st));
+    var sunArea = (sr2 - sl) * (sb - st);
+    return sunArea > 0 ? clamp(ow * oh / sunArea, 0, 1) : 0;
+  }
+
+  // Read cloud opacities once (computed style, not inline) so we don't call
+  // getComputedStyle every frame.
+  function initClouds(){
+    clouds = Array.from(document.querySelectorAll('.atm-cloud')).map(function(el){
+      return { el: el, w: parseFloat(getComputedStyle(el).opacity) || 0.6 };
+    });
+  }
+
+  function applyDim(v){
+    // Veil sits between sun and clouds — dims sun + sky but not the clouds themselves.
+    if(veil) veil.style.opacity = (v * 0.88).toFixed(4);
+    // Shift hero content brightness; skip identity filter to avoid unnecessary layer.
+    if(heroCont) heroCont.style.filter = v > 0.005
+      ? 'brightness(' + (1 - v * 0.26).toFixed(4) + ')'
+      : '';
+  }
+
+  function tick(){
+    if(!isLight()){
+      // Fade out any residual dimming when switching to dark mode.
+      if(dim > 5e-4){ dim *= 0.88; applyDim(dim); }
+      requestAnimationFrame(tick);
+      return;
+    }
+
+    if(!clouds) initClouds();
+
+    var sr     = sunEl ? sunEl.getBoundingClientRect() : null;
+    var target = 0;
+
+    if(sr && sr.width > 0){
+      for(var i = 0; i < clouds.length; i++){
+        // Each cloud contributes overlap × its opacity; total is clamped to avoid
+        // unrealistic total-blackout when several clouds stack over the sun.
+        target += overlapRatio(clouds[i].el.getBoundingClientRect(), sr) * clouds[i].w;
+      }
+      target = clamp(target, 0, 0.86);
+    }
+
+    // Lerp toward target — ~0.045 per frame ≈ 1 s ramp at 60 fps, matching
+    // how slowly cloud edges visually cross the sun.
+    dim += (target - dim) * 0.045;
+    applyDim(dim);
+    requestAnimationFrame(tick);
+  }
+
+  requestAnimationFrame(tick);
+
+  // Re-read cloud opacities if new clouds are injected after a theme switch.
+  var themeBtn = document.getElementById('theme-toggle');
+  if(themeBtn) themeBtn.addEventListener('click', function(){ clouds = null; });
 })();

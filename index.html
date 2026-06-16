@@ -36,12 +36,16 @@
   <div class="atm-base"></div>
   <div class="atm-stars"></div>
   <div class="atm-sun"></div>
+  <div class="atm-veil" id="atm-veil"></div>
   <div class="atm-clouds">
     <div class="atm-cloud ac1"></div>
     <div class="atm-cloud ac2"></div>
     <div class="atm-cloud ac3"></div>
     <div class="atm-cloud ac4"></div>
     <div class="atm-cloud ac5"></div>
+    <div class="atm-cloud ac6"></div>
+    <div class="atm-cloud ac7"></div>
+    <div class="atm-cloud ac8"></div>
   </div>
   <div class="atm-landscape">
     <img class="atm-earth-photo" src="assets/landscape.webp" alt="" decoding="async" />
@@ -65,7 +69,7 @@
       <a href="#stack"><span class="num">02</span>stack</a>
       <a href="#work"><span class="num">03</span>work</a>
       <a href="#contact"><span class="num">04</span>contact</a>
-      <a href="#contact" class="nav-cta">$ ./hire-me.sh</a>
+      <a href="#" class="nav-cta contact-modal-trigger">$ ./hire-me.sh</a>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
         <svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -89,26 +93,30 @@
             View projects
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
-          <a href="#contact" class="btn btn-ghost">Get in touch</a>
+          <a href="#" class="btn btn-ghost contact-modal-trigger">Get in touch</a>
         </div>
         <div class="hero-links">
           <a href="https://github.com/markwaldron7string" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>
+            <span class="social-flag" aria-hidden="true">GitHub</span>
           </a>
           <a href="https://www.linkedin.com/in/mark-waldron-449940158/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8.3 18.3H5.7V9.7h2.6v8.6zM7 8.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.3 9.8h-2.6v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3h-2.6V9.7h2.5v1.2h.1c.4-.7 1.2-1.4 2.5-1.4 2.7 0 3.1 1.7 3.1 4v4.8z"/></svg>
+            <span class="social-flag" aria-hidden="true">LinkedIn</span>
           </a>
           <a href="#" class="contact-modal-trigger" aria-label="Open contact form">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+            <span class="social-flag" aria-hidden="true">Contact</span>
           </a>
           <a href="assets/mark-waldron-resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Resume">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span class="social-flag" aria-hidden="true">Resume</span>
           </a>
         </div>
         <div class="meta-row">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Cheyenne, WY</span>
-          <span class="status"><span class="pulse"></span>Open to opportunities</span>
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span id="cheyenne-offset" data-time-zone="America/Denver">UTC-7</span></span>
+          <span class="status"><span class="pulse"></span>Open to opportunities</span>
         </div>
       </div>
 
@@ -157,7 +165,7 @@
         <div class="activity">
           <div class="activity-head">
             <span>contributions · last year</span>
-            <span style="color:var(--accent)">282</span>
+            <span style="color:var(--accent)" data-github-stat="commitsThisYear">251</span>
           </div>
           <div class="heatmap" id="heatmap"></div>
         </div>
@@ -170,9 +178,9 @@
         <p>Looking for opportunities where I can contribute, learn from experienced developers, and grow as a frontend engineer.</p>
 
         <div class="about-stats" data-github-user="markwaldron7string">
-          <div class="stat" title="Synced from GitHub public repository count"><div class="n" data-github-stat="publicRepos">22</div><div class="l">public repositories</div></div>
-          <div class="stat" title="Synced from public GitHub repos with live homepage URLs"><div class="n" data-github-stat="shippedProjects">8+</div><div class="l">shipped projects</div></div>
-          <div class="stat" title="Synced from GitHub commit search for the current year"><div class="n" data-github-stat="commitsThisYear">282</div><div class="l">commits this year</div></div>
+          <div class="stat" title="Synced from GitHub public repository count"><div class="n" data-github-stat="publicRepos">20</div><div class="l">public repositories</div></div>
+          <div class="stat" title="Synced from public GitHub repos with live homepage URLs"><div class="n" data-github-stat="shippedProjects">9</div><div class="l">shipped projects</div></div>
+          <div class="stat" title="Synced from GitHub commit search for the current year"><div class="n" data-github-stat="commitsThisYear">251</div><div class="l">commits this year</div></div>
         </div>
       </div>
     </div>
@@ -409,15 +417,19 @@
     <div class="social-row">
       <a href="https://github.com/markwaldron7string" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5z"/></svg>
+        <span class="social-flag" aria-hidden="true">GitHub</span>
       </a>
       <a href="https://www.linkedin.com/in/mark-waldron-449940158/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8.3 18.3H5.7V9.7h2.6v8.6zM7 8.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.3 9.8h-2.6v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3h-2.6V9.7h2.5v1.2h.1c.4-.7 1.2-1.4 2.5-1.4 2.7 0 3.1 1.7 3.1 4v4.8z"/></svg>
+        <span class="social-flag" aria-hidden="true">LinkedIn</span>
       </a>
       <a href="#" class="contact-modal-trigger" aria-label="Open contact form">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+        <span class="social-flag" aria-hidden="true">Contact</span>
       </a>
       <a href="assets/mark-waldron-resume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Resume">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span class="social-flag" aria-hidden="true">Resume</span>
       </a>
     </div>
   </div>
