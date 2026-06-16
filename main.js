@@ -536,19 +536,8 @@
     atmosphere.style.transform = 'translate3d(0,' + (window.scrollY * -parallaxRate) + 'px,0)';
   }
 
-  function syncContentZones(){
-    if(!isLight()){
-      document.body.classList.remove('light-zone-sea');
-      return;
-    }
-    var docH = Math.max(document.documentElement.scrollHeight, 1);
-    var probe = window.scrollY + window.innerHeight * 0.62;
-    document.body.classList.toggle('light-zone-sea', probe / docH > 0.62);
-  }
-
   function syncAtmosphereView(){
     syncParallax();
-    syncContentZones();
   }
 
   function isLight(){ return root.getAttribute('data-theme') === 'light'; }
@@ -675,12 +664,11 @@
   }
 })();
 
-// Solar dimming — dim the sun, sky veil, and hero when clouds pass over the sun
+// Solar dimming — dim the sun and hero when clouds pass over the sun
 (function(){
   if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
 
   var root      = document.documentElement;
-  var veil      = document.getElementById('atm-veil');
   var heroCont  = document.querySelector('.hero .container');
   var sunEl     = document.querySelector('.atm-sun');
   var clouds    = null; // populated lazily so DOM is ready
@@ -716,8 +704,6 @@
   }
 
   function applyDim(v){
-    // Veil sits between sun and clouds — dims sun + sky but not the clouds themselves.
-    if(veil) veil.style.opacity = (v * 0.88).toFixed(4);
     // Shift hero content brightness; skip identity filter to avoid unnecessary layer.
     if(heroCont) heroCont.style.filter = v > 0.005
       ? 'brightness(' + (1 - v * 0.26).toFixed(4) + ')'
