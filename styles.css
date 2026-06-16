@@ -369,7 +369,7 @@
     flex:1;background:#000;
     transition:transform .7s cubic-bezier(.22,1,.36,1);
   }
-  [data-theme="light"] .contact-modal__door{background: linear-gradient(135deg, rgb(84, 147, 190), rgb(164, 204, 222), rgb(111, 176, 222) 54%)}
+  [data-theme="light"] .contact-modal__door{background: linear-gradient(135deg, rgb(22, 102, 142), rgb(237, 237, 237))}
   .contact-modal__door--left{
     transform-origin:right center;
   }
