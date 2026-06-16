@@ -505,7 +505,13 @@
     if(!atmosphere) return;
     var contentEnd = getContentEnd();
     atmosphere.style.height = contentEnd + 'px';
-    if(seaFx) seaFx.style.height = contentEnd + 'px';
+    // Reveal after height is set so percentage-positioned clouds appear at the right
+    // spot rather than starting at y=0 (collapsed parent) and causing a layout shift.
+    if(isLight()) atmosphere.style.display = 'block';
+    if(seaFx){
+      seaFx.style.height = contentEnd + 'px';
+      if(isLight()) seaFx.style.display = 'block';
+    }
     syncBubbleZone();
   }
 
@@ -656,6 +662,12 @@
   var toggle = document.getElementById('theme-toggle');
   if(toggle){
     toggle.addEventListener('click', function(){
+      // When switching to dark, hide atmosphere immediately (before the 60ms
+      // bootAtmosphere delay) so it doesn't bleed through transparent sections.
+      if(!isLight()){
+        atmosphere.style.display = '';
+        if(seaFx) seaFx.style.display = '';
+      }
       window.setTimeout(function(){
         bootAtmosphere();
         syncAtmosphereView();

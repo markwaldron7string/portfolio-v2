@@ -580,7 +580,7 @@
   [data-theme="light"] .about-card::before{background:linear-gradient(135deg,rgba(14,125,153,.32),rgba(63,143,58,.16) 54%,transparent 82%)}
   [data-theme="light"] .photo-label{border-color:rgba(14,125,153,.32)}
   [data-theme="light"] .btn-primary{color:#fff;border-color:rgba(14, 125, 153, 0.338);box-shadow:0 0 18px rgba(14, 125, 153, 0.759)}
-  [data-theme="light"] .btn-primary:hover{color:rgb(20, 115, 150);text-shadow:rgba(255, 255, 255, 0.886) 0px 0px 6px; border-radius:0 0 22px rgba(14,125,153,.45)}
+  [data-theme="light"] .btn-primary:hover{color:rgb(20, 115, 150);text-shadow:rgba(255, 255, 255, 0.886) 0px 0px 6px; box-shadow:0 0 22px rgba(14,125,153,.45)}
   [data-theme="light"] .btn-ghost{background:rgba(210, 223, 232, 0.737);border-color:rgba(191, 223, 229, 0.484);color:var(--text);box-shadow:0 0 12px rgba(210, 223, 232, 0.637)}
   [data-theme="light"] .btn-ghost:hover{background:rgba(55, 62, 65, 0.82);border-color:rgba(25, 134, 161, 0.087);color:var(--text);box-shadow:0 0 14px rgba(220, 228, 231, 0.763)}
   [data-theme="light"] .nav-cta{border-color:rgba(14, 125, 153, 0.64)}
@@ -629,7 +629,7 @@
   [data-theme="light"] footer{color:rgba(170,205,225,.82)}
   [data-theme="light"] footer .right span[style]{color:#8fdcff!important}
   [data-theme="light"] .social-row a{
-    background:rgba(255,255,255,.12);
+    background:rgba(255, 255, 255, 0.12);
     border-color:rgba(160,205,230,.28);
     color:rgba(220,240,252,.92);
   }
@@ -647,15 +647,15 @@
     color:var(--accent);
     text-shadow:rgb(245, 246, 247) 0px 0px 12px;
   }
-  [data-theme="light"] .hero .subtitle{color:rgb(14, 71, 88);
-    text-shadow:rgb(255, 255, 255) 0px 0px 8px;}
+  [data-theme="light"] .hero .subtitle{color:rgba(251, 251, 251, 0.917);
+    text-shadow:rgb(21, 104, 175) 0px 0px 8px;}
   [data-theme="light"] .hero .eyebrow{
     color:rgba(210,230,245,.95);
     text-shadow:none;
     font-weight:500;
   }
-  [data-theme="light"] .hero .subtitle b{color:rgb(12, 104, 143);
-    text-shadow:rgb(255, 255, 255) 0px 0px 8px;}
+  [data-theme="light"] .hero .subtitle b{color:rgb(214, 226, 231);
+    text-shadow:rgb(48, 108, 161) 0px 0px 8px;}
   [data-theme="light"] .hero .eyebrow::before{background:rgba(143,220,255,.75)}
   [data-theme="light"] .hero .meta-row,
   [data-theme="light"] .hero .meta-row .status{color:rgb(21, 112, 130); text-shadow:white 0px 0px 6px;}
@@ -738,8 +738,9 @@
   [data-theme="light"] .project:hover .p-arrow{color:#8fdcff}
 
   /* Light-mode atmosphere scrolls with the page: space → sky → land → sea */
+  /* display:block is set by JS after height is initialised — prevents clouds from */
+  /* sitting at y=0 (height=0 parent) then jumping to their % positions on first paint */
   .atmosphere-scroll{display:none}
-  [data-theme="light"] .atmosphere-scroll{display:block}
 
   .atmosphere-scroll{
     position:absolute;top:0;left:0;right:0;z-index:0;
@@ -749,7 +750,6 @@
 
   .atmosphere-sea-fx{display:none}
   [data-theme="light"] .atmosphere-sea-fx{
-    display:block;
     position:absolute;top:0;left:0;right:0;z-index:0;
     pointer-events:none;overflow:visible;
   }
