@@ -153,8 +153,6 @@
   .section-head h2{font-size:28px;font-weight:600;letter-spacing:-.02em;margin:0}
   .section-head .rule{flex:1;height:1px;background:var(--line);margin-left:8px}
 
-  /* Skip rendering work for off-screen sections until scrolled into view */
-  .about,.stack,.featured,.projects,.contact,footer{content-visibility:auto;contain-intrinsic-size:auto 700px}
   /* About */
   .about{padding:80px 0;border-top:1px solid var(--line)}
   .about-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:64px;align-items:start}
@@ -507,7 +505,7 @@
     --text:#ffffff;
     --muted:#466074;
     --dim:#7e98a8;
-    --accent:#378faa;
+    --accent:#04588dbd;
     --accent-2:#c2742f;
     --accent-3:#1493b0;
     --accent-soft:rgba(14,125,153,.1);
@@ -587,9 +585,9 @@
   [data-theme="light"] .nav-cta{border-color:rgba(14, 125, 153, 0.64)}
   [data-theme="light"] .nav-cta:hover{background:rgba(14, 125, 153, 0.64)}
   [data-theme="light"] .contact-form input:focus,[data-theme="light"] .contact-form textarea:focus{box-shadow:0 0 0 3px rgba(14,125,153,.12)}
-  [data-theme="light"] .contact-modal__head h3{color:#0e7d99}
-  [data-theme="light"] .contact-form__submit{background:#0e7d99;color:#fff;border-color:rgba(14,125,153,.55);box-shadow:0 0 18px rgba(14,125,153,.20)}
-  [data-theme="light"] .contact-form__submit:hover:not(:disabled){color:#0e7d99;box-shadow:0 0 22px rgba(14,125,153,.45); border-color:transparent;background:rgba(14,125,153,.1)}
+  [data-theme="light"] .contact-modal__head h3{color:var(--accent)}
+  [data-theme="light"] .contact-form__submit{background:var(--accent);color:#fff;border-color:rgba(14,125,153,.55);box-shadow:0 0 18px rgba(14,125,153,.20)}
+  [data-theme="light"] .contact-form__submit:hover:not(:disabled){color:var(--accent);box-shadow:0 0 22px rgba(14,125,153,.45); border-color:transparent;background:rgba(14,125,153,.1)}
   [data-theme="light"] .contact-modal__logo-glow-container{filter:drop-shadow(0 0 6px var(--accent)) drop-shadow(0 0 18px var(--accent)) drop-shadow(0 0 45px rgba(14,125,153,.7))}
   [data-theme="light"] .contact-modal__reveal{
     background:rgba(240,250,255,.22);
