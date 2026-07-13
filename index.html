@@ -21,7 +21,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="preload" as="image" href="profilepic.webp" type="image/webp" fetchpriority="high" />
+<link rel="preload" as="image" href="profilepic.webp" type="image/webp" />
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=optional" onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=optional" />
@@ -137,7 +137,7 @@
           <div class="indent">],</div>
           <div class="indent"><span class="tk-prop">available</span>: <span class="tk-num">true</span><span class="cursor"></span></div>
           <div>}</div>
-          <div style="margin-top:10px"><span class="tk-comment">// focused, polished, ready to contribute →</span></div>
+          <div class="comment-line"><span class="tk-comment">// focused, polished, ready to contribute →</span></div>
         </div>
       </div>
     </div>
@@ -156,14 +156,14 @@
           <span class="photo-corner br"></span>
           <picture>
             <source srcset="profilepic.webp" type="image/webp">
-            <img class="profile-photo" src="profilepic.jpg" alt="Mark Waldron smiling in his coding workspace" width="640" height="853" fetchpriority="high" />
+            <img class="profile-photo" src="profilepic.jpg" alt="Mark Waldron smiling in his coding workspace" width="640" height="853" />
           </picture>
           <span class="photo-label">// mark.waldron.jpg</span>
         </div>
         <div class="activity">
           <div class="activity-head">
             <span>contributions · last year</span>
-            <span style="color:var(--accent)" data-github-stat="commitsThisYear">251</span>
+            <span class="accent" data-github-stat="commitsThisYear">251</span>
           </div>
           <div class="heatmap" id="heatmap"></div>
         </div>
@@ -264,7 +264,7 @@
           <div class="p-tags">
             <span>Next.js</span><span>OpenAI</span><span>Places API</span><span>Resend</span>
           </div>
-          <div class="fp-foot" style="margin-top:18px"><span>// live project</span><span>→</span></div>
+          <div class="fp-foot"><span>// live project</span><span>→</span></div>
         </div>
       </a>
 
@@ -278,14 +278,14 @@
           <div class="p-tags">
             <span>React</span><span>Next.js</span><span>Tailwind</span><span>AI</span>
           </div>
-          <div class="fp-foot" style="margin-top:18px"><span>// live project</span><span>→</span></div>
+          <div class="fp-foot"><span>// live project</span><span>→</span></div>
         </div>
       </a>
 
     </div>
 
     <!-- Full project list -->
-    <div class="project-list" style="margin-top:64px">
+    <div class="project-list">
 
       <a class="project" href="https://buyersagent-leadscraper.vercel.app/" target="_blank" rel="noopener noreferrer">
         <div class="p-num">/01</div>
@@ -440,10 +440,14 @@
     <div>© 2026 Mark Waldron · designed &amp; built in Cheyenne, WY</div>
     <div class="right">
       <span>v2.0</span>
-      <span style="color:var(--green)">● all systems operational</span>
+      <span class="status-indicator">● all systems operational</span>
     </div>
   </div>
 </footer>
+
+<style>
+  .status-indicator { color: var(--green); }
+</style>
 
 <div class="contact-modal" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title" aria-hidden="true">
   <div class="contact-modal__backdrop" data-contact-close></div>
