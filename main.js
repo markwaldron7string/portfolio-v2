@@ -1,7 +1,13 @@
   // Theme toggle
   const swapLeadscraper = (isLight) => {
     document.querySelectorAll('.ls-img').forEach(img => {
-      img.src = isLight ? 'assets/leadscraper-light.webp' : 'assets/leadscraper.webp';
+      img.src = isLight ? 'assets/leadscraper-light.png' : 'assets/leadscraper.png';
+    });
+  };
+
+  const swapApWorkup = (isLight) => {
+    document.querySelectorAll('.ap-img').forEach(img => {
+      img.src = isLight ? 'assets/apworkuptools-light.png' : 'assets/apworkuptools.png';
     });
   };
 
@@ -14,15 +20,20 @@
         document.documentElement.removeAttribute('data-theme');
         localStorage.setItem('portfolio-theme', 'dark');
         swapLeadscraper(false);
+        swapApWorkup(false);
       } else {
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('portfolio-theme', 'light');
         swapLeadscraper(true);
+        swapApWorkup(true);
       }
       if(window._matrixResize) window._matrixResize();
     });
     // Apply correct image for initial theme
-    if(document.documentElement.getAttribute('data-theme') === 'light') swapLeadscraper(true);
+    if(document.documentElement.getAttribute('data-theme') === 'light'){
+      swapLeadscraper(true);
+      swapApWorkup(true);
+    }
   })();
 
   const matrixCanvas = document.getElementById('matrix-rain');
@@ -174,7 +185,7 @@
     const updateCheyenneOffset = () => {
       const now = new Date();
       cheyenneOffset.textContent = formatUtcOffset(now);
-      cheyenneOffset.title = `Cheyenne, WY (${timeZone}) currently ${cheyenneOffset.textContent}`;
+      cheyenneOffset.title = `Louisville, OH (${timeZone}) currently ${cheyenneOffset.textContent}`;
     };
 
     updateCheyenneOffset();
