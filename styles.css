@@ -479,14 +479,6 @@
   .contact-modal.is-success .contact-modal__doorway,
   .contact-modal.is-success .contact-modal__logo-stage{display:none}
 
-  @media (prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
-    .matrix-rain{display:none}
-    .contact-modal.is-revealing .contact-modal__logo-stage{opacity:0}
-    .contact-modal.is-revealing .contact-modal__door--left{transform:translateX(-100%)}
-    .contact-modal.is-revealing .contact-modal__door--right{transform:translateX(100%)}
-  }
-
   /* Theme toggle button */
   .theme-toggle{
     width:36px;height:36px;border-radius:8px;
@@ -1017,8 +1009,4 @@
     [data-theme="light"] .about .section-head .rule,
     [data-theme="light"] .stack .section-head .rule,
     [data-theme="light"] .featured .section-head .rule{background:transparent}
-  }
-
-  @media(prefers-reduced-motion:reduce){
-    .atm-cloud,.atm-bubble,.atm-particle{animation:none!important}
   }

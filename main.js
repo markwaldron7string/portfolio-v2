@@ -37,9 +37,8 @@
   })();
 
   const matrixCanvas = document.getElementById('matrix-rain');
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const startMatrixRain = () => {
-  if(matrixCanvas && !prefersReducedMotion){
+  if(matrixCanvas){
     const ctx = matrixCanvas.getContext('2d');
     const glyphs = '01{}[]<>/=';
     const getMatrixPalette = () =>
@@ -387,11 +386,6 @@
     contactModal.classList.add('is-open');
     contactModal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(reducedMotion){
-      contactModal.classList.add('is-revealing');
-      return;
-    }
     contactRevealTimer = window.setTimeout(() => {
       contactModal.classList.add('is-revealing');
       const nameInput = contactForm?.querySelector('input[name="name"]');
@@ -499,7 +493,6 @@
 
 (function(){
   var root = document.documentElement;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var atmosphere = document.getElementById('atmosphere-scroll');
   var seaFx = document.getElementById('atmosphere-sea-fx');
   var bubbleRoot = document.getElementById('atmosphere-bubbles');
@@ -546,7 +539,7 @@
 
   function syncParallax(){
     if(!atmosphere) return;
-    if(!isLight() || reduce){
+    if(!isLight()){
       atmosphere.style.transform = '';
       return;
     }
@@ -664,11 +657,9 @@
     }
   }
 
-  if(!reduce){
-    setInterval(function(){
-      if(isLight() && Math.random() > 0.3) spawnCluster();
-    }, 10000 + Math.random() * 7000);
-  }
+  setInterval(function(){
+    if(isLight() && Math.random() > 0.3) spawnCluster();
+  }, 10000 + Math.random() * 7000);
 
   var toggle = document.getElementById('theme-toggle');
   if(toggle){
@@ -689,8 +680,6 @@
 
 // Solar dimming — dim the sun and hero when clouds pass over the sun
 (function(){
-  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-
   var root      = document.documentElement;
   var heroCont  = document.querySelector('.hero .container');
   var sunEl     = document.querySelector('.atm-sun');
