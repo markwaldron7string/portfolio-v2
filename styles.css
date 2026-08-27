@@ -246,7 +246,7 @@
   /* Featured project showcase */
   .featured{padding:80px 0;border-top:1px solid var(--line)}
   .featured .section-head{margin-bottom:28px}
-  .featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px}
+  .featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px}
   .fp-card{
     background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;
     transition:.2s;display:flex;flex-direction:column;color:inherit;
@@ -657,7 +657,7 @@
     text-shadow:none;
     font-weight:500;
   }
-  [data-theme="light"] .hero .subtitle b{color:rgba(8, 122, 172, 0.736);
+  [data-theme="light"] .hero .subtitle b{color:rgba(11, 119, 165, 0.805);
     text-shadow:rgb(227, 231, 235) 0px 0px 8px;}
   [data-theme="light"] .hero .eyebrow::before{background:rgba(143,220,255,.75)}
   [data-theme="light"] .hero .meta-row,

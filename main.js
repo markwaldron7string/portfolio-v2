@@ -11,6 +11,12 @@
     });
   };
 
+  const swapTaskTracker = (isLight) => {
+    document.querySelectorAll('.tt-img').forEach(img => {
+      img.src = isLight ? 'assets/tasktracker-light.png' : 'assets/tasktracker.png';
+    });
+  };
+
   (function(){
     const toggle = document.getElementById('theme-toggle');
     if(!toggle) return;
@@ -21,11 +27,13 @@
         localStorage.setItem('portfolio-theme', 'dark');
         swapLeadscraper(false);
         swapApWorkup(false);
+        swapTaskTracker(false);
       } else {
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('portfolio-theme', 'light');
         swapLeadscraper(true);
         swapApWorkup(true);
+        swapTaskTracker(true);
       }
       if(window._matrixResize) window._matrixResize();
     });
@@ -33,6 +41,7 @@
     if(document.documentElement.getAttribute('data-theme') === 'light'){
       swapLeadscraper(true);
       swapApWorkup(true);
+      swapTaskTracker(true);
     }
   })();
 
