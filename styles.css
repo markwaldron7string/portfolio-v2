@@ -657,8 +657,8 @@
     text-shadow:none;
     font-weight:500;
   }
-  [data-theme="light"] .hero .subtitle b{color:rgb(214, 226, 231);
-    text-shadow:rgb(48, 108, 161) 0px 0px 8px;}
+  [data-theme="light"] .hero .subtitle b{color:rgba(8, 122, 172, 0.736);
+    text-shadow:rgb(227, 231, 235) 0px 0px 8px;}
   [data-theme="light"] .hero .eyebrow::before{background:rgba(143,220,255,.75)}
   [data-theme="light"] .hero .meta-row,
   [data-theme="light"] .hero .meta-row .status{color:rgb(21, 112, 130); text-shadow:white 0px 0px 6px;}

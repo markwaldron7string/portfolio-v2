@@ -91,4 +91,4 @@ Open to frontend roles, freelance projects, and collaborations involving React o
 
 ---
 
-© 2026 Mark Waldron · designed & built in Cheyenne, WY
+© 2026 Mark Waldron · designed & built in Louisville, OH
