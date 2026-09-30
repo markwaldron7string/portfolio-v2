@@ -496,7 +496,6 @@
     display:flex;align-items:center;justify-content:center;
     cursor:pointer;transition:.15s;flex-shrink:0;padding:0;
   }
-  .theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
   .theme-icon--sun{display:none}
   .motion-icon--play{display:none}
   [data-motion="paused"] .motion-icon--pause{display:none}
@@ -508,8 +507,12 @@
   [data-theme="light"] .theme-icon--moon{display:none}
   [data-theme="light"] .theme-icon--sun{display:block;color:rgba(138, 216, 218, 0.64)}
   [data-theme="light"] .theme-toggle{border-color:rgba(14, 125, 153, 0.707)}
-  [data-theme="light"] .theme-toggle:hover{background-color:rgba(14, 125, 153, 0.173)}
-  [data-theme="light"] .theme-toggle:hover .theme-icon--sun{color:rgb(158, 202, 224)}
+  /* Hover only on devices that really hover, so a tap on a phone doesn't leave the button lit */
+  @media (hover:hover){
+    .theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+    [data-theme="light"] .theme-toggle:hover{background-color:rgba(14, 125, 153, 0.173)}
+    [data-theme="light"] .theme-toggle:hover .theme-icon--sun{color:rgb(158, 202, 224)}
+  }
 
   /* Light mode */
   [data-theme="light"]{
