@@ -17,6 +17,9 @@
     var s=localStorage.getItem('portfolio-theme');
     var d=window.matchMedia('(prefers-color-scheme:dark)').matches;
     if((s==='light')||(!s&&!d))document.documentElement.setAttribute('data-theme','light');
+    var m=localStorage.getItem('portfolio-motion');
+    var r=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if((m==='paused')||(!m&&r))document.documentElement.setAttribute('data-motion','paused');
   })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -63,14 +66,18 @@
       mark.waldron<span class="slash">/</span><span class="role">software</span>
     </a>
     <div class="nav-links">
-      <a href="#about"><span class="num">01</span>about</a>
-      <a href="#stack"><span class="num">02</span>stack</a>
-      <a href="#work"><span class="num">03</span>work</a>
-      <a href="#contact"><span class="num">04</span>contact</a>
-      <a href="#" class="nav-cta contact-modal-trigger">$ ./hire-me.sh</a>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode">
-        <svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <a href="#about"><span class="num" aria-hidden="true">01</span>about</a>
+      <a href="#stack"><span class="num" aria-hidden="true">02</span>stack</a>
+      <a href="#work"><span class="num" aria-hidden="true">03</span>work</a>
+      <a href="#contact"><span class="num" aria-hidden="true">04</span>contact</a>
+      <button type="button" class="nav-cta contact-modal-trigger">$ ./hire-me.sh</button>
+      <button type="button" class="theme-toggle motion-toggle" id="motion-toggle" aria-label="Pause animations" aria-pressed="false">
+        <svg class="motion-icon motion-icon--pause" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="9" y1="5" x2="9" y2="19"/><line x1="15" y1="5" x2="15" y2="19"/></svg>
+        <svg class="motion-icon motion-icon--play" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg>
+      </button>
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Light mode" aria-pressed="false">
+        <svg class="theme-icon theme-icon--moon" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-icon theme-icon--sun" aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       </button>
     </div>
   </div>
@@ -91,7 +98,7 @@
             View projects
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </a>
-          <a href="#" class="btn btn-ghost contact-modal-trigger">Get in touch</a>
+          <button type="button" class="btn btn-ghost contact-modal-trigger">Get in touch</button>
         </div>
         <div class="hero-links">
           <a href="https://github.com/markwaldron7string" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -102,10 +109,10 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8.3 18.3H5.7V9.7h2.6v8.6zM7 8.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.3 9.8h-2.6v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3h-2.6V9.7h2.5v1.2h.1c.4-.7 1.2-1.4 2.5-1.4 2.7 0 3.1 1.7 3.1 4v4.8z"/></svg>
             <span class="social-flag" aria-hidden="true">LinkedIn</span>
           </a>
-          <a href="#" class="contact-modal-trigger" aria-label="Open contact form">
+          <button type="button" class="contact-modal-trigger" aria-label="Open contact form">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
             <span class="social-flag" aria-hidden="true">Contact</span>
-          </a>
+          </button>
         </div>
         <div class="meta-row">
           <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Louisville, OH</span>
@@ -444,10 +451,10 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8.3 18.3H5.7V9.7h2.6v8.6zM7 8.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.3 9.8h-2.6v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3h-2.6V9.7h2.5v1.2h.1c.4-.7 1.2-1.4 2.5-1.4 2.7 0 3.1 1.7 3.1 4v4.8z"/></svg>
         <span class="social-flag" aria-hidden="true">LinkedIn</span>
       </a>
-      <a href="#" class="contact-modal-trigger" aria-label="Open contact form">
+      <button type="button" class="contact-modal-trigger" aria-label="Open contact form">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
         <span class="social-flag" aria-hidden="true">Contact</span>
-      </a>
+      </button>
     </div>
   </div>
 </section>
@@ -496,8 +503,8 @@
             Send message
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
           </button>
-          <p class="contact-form__status" id="contact-form-status" role="status" aria-live="polite"></p>
         </form>
+        <p class="contact-form__status" id="contact-form-status" role="status" aria-live="polite"></p>
       </div>
     </div>
     <div class="contact-modal__doorway" aria-hidden="true">

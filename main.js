@@ -20,6 +20,8 @@
   (function(){
     const toggle = document.getElementById('theme-toggle');
     if(!toggle) return;
+    const syncPressed = () => toggle.setAttribute('aria-pressed', String(document.documentElement.getAttribute('data-theme') === 'light'));
+    syncPressed();
     toggle.addEventListener('click', () => {
       const isLight = document.documentElement.getAttribute('data-theme') === 'light';
       if(isLight){
@@ -35,6 +37,7 @@
         swapApWorkup(true);
         swapTaskTracker(true);
       }
+      syncPressed();
       if(window._matrixResize) window._matrixResize();
     });
     // Apply correct image for initial theme
@@ -43,6 +46,26 @@
       swapApWorkup(true);
       swapTaskTracker(true);
     }
+  })();
+
+  // Pause/resume all ambient animation (WCAG 2.2.2)
+  const motionPaused = () => document.documentElement.getAttribute('data-motion') === 'paused';
+  (function(){
+    const toggle = document.getElementById('motion-toggle');
+    if(!toggle) return;
+    const syncPressed = () => toggle.setAttribute('aria-pressed', String(motionPaused()));
+    syncPressed();
+    toggle.addEventListener('click', () => {
+      if(motionPaused()){
+        document.documentElement.removeAttribute('data-motion');
+        localStorage.setItem('portfolio-motion', 'running');
+      } else {
+        document.documentElement.setAttribute('data-motion', 'paused');
+        localStorage.setItem('portfolio-motion', 'paused');
+      }
+      syncPressed();
+      if(window._matrixResume) window._matrixResume();
+    });
   })();
 
   const matrixCanvas = document.getElementById('matrix-rain');
@@ -118,19 +141,18 @@
           column.lastGlyphShift = now;
         }
       });
-      animationId = requestAnimationFrame(drawMatrix);
+      if(!motionPaused()) animationId = requestAnimationFrame(drawMatrix);
     };
 
     resizeMatrix();
     drawMatrix();
     window.addEventListener('resize', resizeMatrix);
-    window._matrixResize = resizeMatrix;
+    window._matrixResize = () => { resizeMatrix(); if(motionPaused()) drawMatrix(); };
+    window._matrixResume = () => { cancelAnimationFrame(animationId); drawMatrix(); };
+    window.addEventListener('resize', () => { if(motionPaused()) drawMatrix(); });
     document.addEventListener('visibilitychange', () => {
-      if(document.hidden){
-        cancelAnimationFrame(animationId);
-      }else{
-        drawMatrix();
-      }
+      cancelAnimationFrame(animationId);
+      if(!document.hidden) drawMatrix();
     });
   }
   };
@@ -347,7 +369,12 @@
       const id=a.getAttribute('href');
       if(id.length>1){
         const el=document.querySelector(id);
-        if(el){e.preventDefault();window.scrollTo({top:el.offsetTop-72,behavior:'smooth'})}
+        if(el){
+          e.preventDefault();
+          window.scrollTo({top:el.offsetTop-72,behavior:motionPaused()?'auto':'smooth'});
+          if(!el.hasAttribute('tabindex')) el.setAttribute('tabindex','-1');
+          el.focus({preventScroll:true});
+        }
       }
     });
   });
@@ -362,7 +389,13 @@
   const contactModalTriggers = document.querySelectorAll('.contact-modal-trigger');
   const contactCloseTargets = contactModal?.querySelectorAll('[data-contact-close]') || [];
   const contactRevealDelayMs = 500;
+  const contactModalBackground = document.querySelectorAll('nav.top, main, footer');
   let contactRevealTimer;
+  let contactReturnFocus;
+
+  const setBackgroundInert = (inert) => {
+    contactModalBackground.forEach((el) => { el.inert = inert; });
+  };
 
   const resetContactModal = () => {
     if(!contactModal) return;
@@ -392,13 +425,15 @@
   const openContactModal = () => {
     if(!contactModal) return;
     resetContactModal();
+    contactReturnFocus = document.activeElement;
     contactModal.classList.add('is-open');
     contactModal.setAttribute('aria-hidden', 'false');
+    setBackgroundInert(true);
     document.body.style.overflow = 'hidden';
+    const nameInput = contactForm?.querySelector('input[name="name"]');
+    if(nameInput) nameInput.focus({ preventScroll: true });
     contactRevealTimer = window.setTimeout(() => {
       contactModal.classList.add('is-revealing');
-      const nameInput = contactForm?.querySelector('input[name="name"]');
-      if(nameInput) window.setTimeout(() => nameInput.focus(), 520);
     }, contactRevealDelayMs);
   };
 
@@ -406,6 +441,9 @@
     if(!contactModal) return;
     contactModal.classList.remove('is-open', 'is-revealing', 'is-success');
     contactModal.setAttribute('aria-hidden', 'true');
+    setBackgroundInert(false);
+    if(contactReturnFocus && typeof contactReturnFocus.focus === 'function') contactReturnFocus.focus();
+    contactReturnFocus = undefined;
     document.body.style.overflow = '';
     if(contactRevealTimer){
       clearTimeout(contactRevealTimer);
@@ -490,6 +528,7 @@
         contactFormSubmit.disabled = false;
         contactFormSubmit.textContent = 'Close';
         contactFormSubmit.onclick = closeContactModal;
+        contactModal.querySelector('.contact-modal__close')?.focus();
       }catch(error){
         const detail = error instanceof Error ? error.message : 'Request failed';
         contactFormStatus.textContent = `${detail} If this keeps happening, email contact@mark-waldron.com directly.`;
@@ -667,7 +706,7 @@
   }
 
   setInterval(function(){
-    if(isLight() && Math.random() > 0.3) spawnCluster();
+    if(isLight() && !motionPaused() && Math.random() > 0.3) spawnCluster();
   }, 10000 + Math.random() * 7000);
 
   var toggle = document.getElementById('theme-toggle');
