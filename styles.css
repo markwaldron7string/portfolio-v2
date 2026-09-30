@@ -69,6 +69,7 @@
   .nav-links :is(a,.nav-cta){font-size:13px;color:var(--muted);padding:8px 14px;border-radius:6px;transition:.15s}
   .nav-links :is(a,.nav-cta):hover{color:var(--text);background:var(--panel)}
   [data-theme="light"] nav.top .nav-links :is(a,.nav-cta):hover{color:#ffffff;background:rgba(14,125,153,.18)}
+  .nav-links a[aria-current]{color:var(--text);background:var(--accent-soft);box-shadow:inset 0 0 0 1px rgba(98,243,109,.28)}
   .nav-links a .num{color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:11px;margin-right:6px}
   .nav-cta{
     font-size:12px;font-family:'JetBrains Mono',monospace;
@@ -564,6 +565,7 @@
   }
   [data-theme="light"] nav.top .brand,
   [data-theme="light"] nav.top .nav-links :is(a,.nav-cta){color:rgba(236,244,252,.92)}
+  [data-theme="light"] nav.top .nav-links a[aria-current]{color:#ffffff;background:rgba(14,125,153,.3);box-shadow:inset 0 0 0 1px rgba(143,220,255,.35)}
   [data-theme="light"] nav.top .brand .role,
   [data-theme="light"] nav.top .nav-links a .num{color:rgba(180,210,235,.75)}
   [data-theme="light"] .terminal{background:rgba(4,12,22,.78)!important;border-color:rgba(14,125,153,.35)!important;-webkit-backdrop-filter:blur(16px) saturate(130%);backdrop-filter:blur(16px) saturate(130%);box-shadow:0 24px 70px -28px rgba(0,8,18,.55),0 0 0 1px rgba(14,125,153,.18)}

@@ -363,21 +363,50 @@
     hm.innerHTML = arr.map(c=>`<div class="${c}"></div>`).join('');
   }
 
+  // Section jumps land so the section's top border sits under the navbar's bottom border
+  const navBar = document.querySelector('nav.top');
+  const sectionOffset = () => (navBar ? navBar.offsetHeight - 1 : 0);
+  const pageTop = (el) => el.getBoundingClientRect().top + window.scrollY;
+
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
     a.addEventListener('click',e=>{
       const id=a.getAttribute('href');
-      if(id.length>1){
+      if(id==='#'){
+        e.preventDefault();
+        window.scrollTo({top:0,behavior:motionPaused()?'auto':'smooth'});
+      }else{
         const el=document.querySelector(id);
         if(el){
           e.preventDefault();
-          window.scrollTo({top:el.offsetTop-72,behavior:motionPaused()?'auto':'smooth'});
+          window.scrollTo({top:Math.ceil(pageTop(el)-sectionOffset()),behavior:motionPaused()?'auto':'smooth'});
           if(!el.hasAttribute('tabindex')) el.setAttribute('tabindex','-1');
           el.focus({preventScroll:true});
         }
       }
     });
   });
+
+  // Highlight the nav link for the section currently under the navbar
+  const navSectionLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'))
+    .map((link) => ({ link, section: document.querySelector(link.getAttribute('href')) }))
+    .filter((item) => item.section);
+  const syncActiveNav = () => {
+    const line = sectionOffset() + 2;
+    const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    let active = null;
+    navSectionLinks.forEach((item) => {
+      if(item.section.getBoundingClientRect().top <= line) active = item;
+    });
+    if(atBottom && navSectionLinks.length) active = navSectionLinks[navSectionLinks.length - 1];
+    navSectionLinks.forEach((item) => {
+      if(item === active) item.link.setAttribute('aria-current', 'location');
+      else item.link.removeAttribute('aria-current');
+    });
+  };
+  syncActiveNav();
+  window.addEventListener('scroll', syncActiveNav, { passive: true });
+  window.addEventListener('resize', syncActiveNav);
 
   // Key at https://web3forms.com
   const WEB3FORMS_ACCESS_KEY = '1915556d-5569-4112-ab63-585fe764507d';
