@@ -76,7 +76,7 @@ python3 -m http.server 8000
 
 Open the local URL printed in the terminal, such as `http://localhost:8000`.
 
-You can also open `index.html` directly in a browser, although serving the directory more closely reflects the production environment.
+The JavaScript is loaded as native ES modules, which browsers only load over HTTP, so opening `index.html` directly from disk will render the page without its scripts.
 
 ## Project structure
 
@@ -84,7 +84,19 @@ You can also open `index.html` directly in a browser, although serving the direc
 portfolio-v2/
 ├── index.html                 # Markup and page structure
 ├── styles.css                 # Styles for both visual themes
-├── main.js                    # Theme logic, animations, and contact modal
+├── js/                        # ES modules, one per feature
+│   ├── main.js                # Entry point that imports the modules below
+│   ├── state.js               # Shared theme and motion state helpers
+│   ├── theme.js               # Light/dark toggle and themed screenshots
+│   ├── motion.js              # Pause/resume toggle for ambient animation
+│   ├── matrix-rain.js         # Canvas rain background
+│   ├── utc-offset.js          # Live UTC offset in the hero card
+│   ├── github-stats.js        # GitHub stats fetch and cache
+│   ├── heatmap.js             # Activity heatmap
+│   ├── nav.js                 # Smooth scrolling and active nav link
+│   ├── contact-modal.js       # Contact modal and form submission
+│   ├── atmosphere.js          # Light-mode parallax, bubbles, and particles
+│   └── solar-dimming.js       # Dims the hero when clouds cross the sun
 ├── assets/                    # Project screenshots and site images
 ├── profilepic.jpg             # Profile image fallback
 ├── profilepic.webp            # Optimized profile image
