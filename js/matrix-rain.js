@@ -8,7 +8,7 @@ const startMatrixRain = () => {
   const getMatrixPalette = () =>
     isLight()
       ? ['138,40,192','138,40,192','42,128,64']
-      : ['98,243,109','98,243,109','210,130,255'];
+      : ['98,243,109','98,243,109','200,206,214'];
   const fontSize = 14;
   const glyphShiftMinMs = 120;
   const glyphShiftRangeMs = 120;
