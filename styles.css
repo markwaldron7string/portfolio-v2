@@ -498,7 +498,7 @@
   .motion-icon--play{display:none}
   [data-motion="paused"] .motion-icon--pause{display:none}
   [data-motion="paused"] .motion-icon--play{display:block}
-  [data-theme="light"] .motion-toggle{color:rgba(180,210,235,.9)}
+  [data-theme="light"] .motion-toggle{color:rgba(138, 216, 218, 0.64)}
   [data-motion="paused"] *,
   [data-motion="paused"] *::before,
   [data-motion="paused"] *::after{animation-play-state:paused!important}
@@ -509,7 +509,8 @@
   @media (hover:hover){
     .theme-toggle:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
     [data-theme="light"] .theme-toggle:hover{background-color:rgba(14, 125, 153, 0.173)}
-    [data-theme="light"] .theme-toggle:hover .theme-icon--sun{color:rgb(158, 202, 224)}
+    [data-theme="light"] .theme-toggle:hover .theme-icon--sun,
+    [data-theme="light"] .motion-toggle:hover{color:rgb(158, 202, 224)}
   }
 
   /* Light mode */
@@ -705,6 +706,10 @@
   [data-theme="light"] .hero .btn-ghost:hover{
     background:rgba(14, 124, 208, 0.24);
     color:#ffffff;
+  }
+  [data-theme="light"] .hero .btn-primary:hover{
+    color:#ffffff;
+    text-shadow:0 0 8px rgba(255,255,255,.9),0 0 18px rgba(255,255,255,.6);
   }
   [data-theme="light"] .hero::after{
     content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
